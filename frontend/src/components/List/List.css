@@ -1,19 +1,47 @@
 .post-list-item {
     display: flex;
-    gap: 16px;
-    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
   
-    background: var(--white);
-    border-radius: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--gray-02);
+  
+    cursor: pointer;
+    transition: background-color 0.15s ease;
   }
   
-  .post-list-item h4 {
-    font: var(--subhead-03);
-    color: var(--g-14);
+  .post-list-item:hover {
+    background-color: var(--gray-01);
   }
   
-  .post-list-item span {
-    font: var(--caption);
-    color: var(--g-09);
+  /* 왼쪽 텍스트 영역 */
+  .post-list-left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .post-list-index {
+    font-size: 12px;
+    color: var(--gray-04);
+  }
+  
+  .post-list-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--gray-09);
+  }
+  
+  .post-list-date {
+    font-size: 13px;
+    color: var(--gray-05);
+  }
+  
+  /* 이미지 영역 */
+  .post-list-image img {
+    width: 120px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
   }
   
