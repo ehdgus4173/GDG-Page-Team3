@@ -1,0 +1,46 @@
+.gdg-logo {
+    position: relative;
+    width: 56px;
+    height: 32px;
+  }
+  
+  /* 공통 pill */
+  .logo-pill {
+    position: absolute;
+    width: 7.36px;
+    height: 21.64px;
+    border-radius: 43px;
+  }
+  
+  /* 🔴 Red */
+  .logo-pill.red {
+    background: var(--red);
+    transform: rotate(-119.97deg);
+    top: 2px;
+    left: 9px;
+  }
+  
+  /* 🔵 Blue */
+  .logo-pill.blue {
+    background: var(--blue);
+    transform: rotate(-60.3deg);
+    top: 10px;
+    left: 7px;
+  }
+  
+  /* 🟢 Green */
+  .logo-pill.green {
+    background: var(--green);
+    transform: rotate(-60.3deg);
+    top: 2px;
+    left: 32px;
+  }
+  
+  /* 🟡 Yellow */
+  .logo-pill.yellow {
+    background: var(--yellow);
+    transform: rotate(-119.97deg);
+    top: 10px;
+    left: 31px;
+  }
+  

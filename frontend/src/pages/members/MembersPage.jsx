@@ -9,7 +9,7 @@ function MembersPage() {
     const filters = [
         {
           key: "generation",
-          options: ["전체", "1기", "2기"]
+          options: ["전체", "1기", "2기", "3기", "4기", "5기"]
         },
         {
           key: "part",

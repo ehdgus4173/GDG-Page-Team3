@@ -1,6 +1,7 @@
 import Navbar from "../Navbar/Navbar";
 import "../../styles/layout.css";
 import "./Header.css";
+import GDGLogo from "../Logo/GDGLogo";
 
 function Header() {
   const isLoggedIn = false;
@@ -8,7 +9,14 @@ function Header() {
   return (
     <header className="header">
       <div className="container header-inner">
-        <div className="header-left">GDGoC</div>
+        <div className="header-left">
+            <GDGLogo size={28} />
+            <span className="logo-text">
+            Google Developer Groups
+            <br />
+            On Campus · SeoulTech University
+            </span>
+        </div>
 
         <div className="header-center">
           <Navbar />
