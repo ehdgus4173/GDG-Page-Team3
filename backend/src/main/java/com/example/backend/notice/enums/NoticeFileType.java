@@ -1,6 +1,6 @@
 package com.example.backend.notice.enums;
 
-public enum NoticeAttachmentType {
+public enum NoticeFileType {
     IMAGE,
     FILE
 }
