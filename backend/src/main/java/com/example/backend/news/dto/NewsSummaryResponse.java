@@ -5,5 +5,7 @@ import java.time.LocalDateTime;
 public record NewsSummaryResponse(
         Long id,
         String title,
-        LocalDateTime createdAt
+        String thumbnailUrl,
+        LocalDateTime createdAt,
+        int generation
 ) {}
