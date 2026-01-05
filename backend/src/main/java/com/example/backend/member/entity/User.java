@@ -1,12 +1,15 @@
 package com.example.backend.member.entity;
 
+import com.example.backend.member.enums.MemberRole;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users")
+@Table(name = "members")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -24,8 +27,8 @@ public class User {
     private Integer generation;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 10)
-    private Role role;
+    @Column(nullable = false, length = 20)
+    private MemberRole role;
 
     @Column(length = 50, nullable = false)
     private String part;
@@ -42,36 +45,23 @@ public class User {
     @Column(name = "password_hash", length = 255, nullable = false)
     private String passwordHash;
 
-    @Column(name = "is_email_verified", nullable = false)
-    private Boolean isEmailVerified;
+    @Column(nullable = false)
+    @Builder.Default
+    private boolean emailVerified = false;
 
+    @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     /* ===============================
-       JPA Lifecycle Callbacks
-       =============================== */
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-        this.isEmailVerified = false;
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    /* ===============================
-       Domain Methods (선택)
+       Domain Methods
        =============================== */
 
     public void verifyEmail() {
-        this.isEmailVerified = true;
+        this.emailVerified = true;
     }
 }
