@@ -17,18 +17,12 @@ public enum ProfileErrorCode implements BaseErrorCode {
     @ExplainError("내 프로필 정보를 찾을 수 없는 경우 발생합니다.")
     PROFILE_NOT_FOUND(NOT_FOUND, "PROFILE_404_1", "프로필 정보를 찾을 수 없습니다."),
 
-    @ExplainError("비밀번호 재설정 정보를 찾을 수 없습니다.")
-    PASSWORD_RESET_NOT_FOUND(NOT_FOUND, "PROFILE_404_2", "비밀번호 재설정 정보를 찾을 수 없습니다."),
-
     @ExplainError("프로필 이미지를 찾을 수 없습니다.")
     PROFILE_IMAGE_NOT_FOUND(NOT_FOUND, "PROFILE_404_3", "프로필 이미지를 찾을 수 없습니다."),
 
     // 400 - Bad Request
     @ExplainError("이름이 null 또는 blank인 경우 발생합니다.")
     NAME_REQUIRED(BAD_REQUEST, "PROFILE_400_1", "이름은 필수입니다."),
-
-    @ExplainError("이메일이 null 또는 blank인 경우 발생합니다.")
-    EMAIL_REQUIRED(BAD_REQUEST, "PROFILE_400_2", "이메일은 필수입니다."),
 
     @ExplainError("이메일 형식이 올바르지 않습니다.")
     INVALID_EMAIL_FORMAT(BAD_REQUEST, "PROFILE_400_3", "이메일 형식이 올바르지 않습니다."),
@@ -69,18 +63,6 @@ public enum ProfileErrorCode implements BaseErrorCode {
     @ExplainError("새 비밀번호가 현재 비밀번호와 동일합니다.")
     SAME_AS_CURRENT_PASSWORD(BAD_REQUEST, "PROFILE_400_15", "새 비밀번호는 현재 비밀번호와 달라야 합니다."),
 
-    @ExplainError("비밀번호 재설정 토큰이 유효하지 않습니다.")
-    INVALID_PASSWORD_RESET_TOKEN(BAD_REQUEST, "PROFILE_400_16", "유효하지 않은 비밀번호 재설정 토큰입니다."),
-
-    @ExplainError("비밀번호 재설정 토큰이 만료되었습니다.")
-    PASSWORD_RESET_TOKEN_EXPIRED(BAD_REQUEST, "PROFILE_400_17", "비밀번호 재설정 토큰이 만료되었습니다."),
-
-    @ExplainError("비밀번호 재설정 토큰이 이미 사용되었습니다.")
-    PASSWORD_RESET_TOKEN_ALREADY_USED(BAD_REQUEST, "PROFILE_400_18", "이미 사용된 비밀번호 재설정 토큰입니다."),
-
-    @ExplainError("프로필 이미지 URL이 형식이 올바르지 않은 경우 발생합니다.")
-    INVALID_IMAGE_URL(BAD_REQUEST, "PROFILE_400_19", "프로필 이미지 URL 형식이 올바르지 않습니다."),
-
     @ExplainError("프로필 이미지 파일 크기가 제한을 초과한 경우 발생합니다.")
     IMAGE_SIZE_EXCEEDED(BAD_REQUEST, "PROFILE_400_20", "프로필 이미지 파일 크기가 너무 큽니다."),
 
@@ -93,25 +75,6 @@ public enum ProfileErrorCode implements BaseErrorCode {
     // 403 - Forbidden
     @ExplainError("프로필 수정 권한이 없는 경우 발생합니다.")
     PROFILE_UPDATE_FORBIDDEN(FORBIDDEN, "PROFILE_403_1", "프로필 수정 권한이 없습니다."),
-
-    @ExplainError("프로필 접근 권한이 없는 경우 발생합니다.")
-    PROFILE_ACCESS_FORBIDDEN(FORBIDDEN, "PROFILE_403_2", "프로필 접근 권한이 없습니다."),
-
-    @ExplainError("프로필 이미지 업로드 권한이 없습니다.")
-    IMAGE_UPLOAD_FORBIDDEN(FORBIDDEN, "PROFILE_403_3", "프로필 이미지 업로드 권한이 없습니다."),
-
-    @ExplainError("비밀번호 변경 권한이 없습니다.")
-    PASSWORD_CHANGE_FORBIDDEN(FORBIDDEN, "PROFILE_403_4", "비밀번호 변경 권한이 없습니다."),
-
-    // 409 - Conflict
-    @ExplainError("이메일이 이미 존재하는 경우 발생합니다.")
-    EMAIL_ALREADY_EXISTS(CONFLICT, "PROFILE_409_1", "이미 등록된 이메일입니다."),
-
-    @ExplainError("학번이 이미 존재하는 경우 발생합니다.")
-    STUDENT_ID_ALREADY_EXISTS(CONFLICT, "PROFILE_409_2", "이미 등록된 학번입니다."),
-
-    @ExplainError("프로필 업데이트 요청이 충돌했습니다.")
-    PROFILE_UPDATE_CONFLICT(CONFLICT, "PROFILE_409_3", "프로필 업데이트 요청이 충돌했습니다. 다시 시도해주세요."),
 
     // 500 - Internal Server Error
     @ExplainError("프로필 이미지 업로드 중 서버 오류가 발생한 경우")
