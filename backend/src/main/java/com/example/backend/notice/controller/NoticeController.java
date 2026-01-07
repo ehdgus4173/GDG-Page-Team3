@@ -6,9 +6,9 @@ import com.example.backend.notice.document.*;
 import com.example.backend.notice.dto.*;
 import com.example.backend.notice.service.NoticeService;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +23,10 @@ public class NoticeController {
 
     @GetMapping
     @ApiErrorExceptionsExample(NoticeGetListExceptionDocs.class)
-    public ResponseEntity<List<NoticeSummaryResponse>> getNoticeList() {
-        return ResponseEntity.ok(noticeService.getNoticeList());
+    public ResponseEntity<List<NoticeSummaryResponse>> getNoticeList(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(noticeService.getNoticeList(page, size));
     }
 
     @GetMapping("/{id}")
@@ -33,8 +35,8 @@ public class NoticeController {
         return ResponseEntity.ok(noticeService.getNotice(id));
     }
 
-    @Valid
     @PostMapping
+    @PreAuthorize("hasAnyRole('LEAD', 'CORE')")
     @ApiErrorExceptionsExample(NoticeCreateExceptionDocs.class)
     public ResponseEntity<CreateResponse> createNotice(@RequestBody CreateNoticeRequest request) {
         Long id = noticeService.createNotice(request);
