@@ -1,11 +1,8 @@
 package com.example.backend.news.entity;
 
+import com.example.backend.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-public class News {
+public class News extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,21 +29,13 @@ public class News {
     private String thumbnailUrl;
 
     @Column(nullable = false)
-    private int generation;   // 🔹 기수 필터
+    private int generation;
 
     @Column(name = "author_id", nullable = false)
-    private Long authorId;    // 🔹 작성자 (users.id)
+    private Long authorId;
 
     @Column(name = "view_count", nullable = false)
     private int viewCount;
-
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
-
-    @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
 
     @OneToMany(
             mappedBy = "news",
