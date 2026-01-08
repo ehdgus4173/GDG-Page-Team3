@@ -9,6 +9,8 @@ import MembersPage from "./pages/members/MembersPage";
 import MyPage from "./pages/mypage/Mypage";
 import NoticeDetailPage from "./pages/notice/NoticeDetailPage";
 import NewsDetailPage from "./pages/news/NewsDetailPage";
+import NoticeWritePage from "./pages/notice/NoticeWritePage";
+import NewsWritePage from "./pages/news/NewsWritePage";
 
 function App() {
   return (
@@ -18,9 +20,10 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<MainPage />} />
           <Route path="/notice" element={<NoticePage />} />
-          {/* ✅ 공지 상세 페이지 */}
+          <Route path="/notice/write" element={<NoticeWritePage />} />
           <Route path="/notice/:id" element={<NoticeDetailPage />} />
           <Route path="/news" element={<NewsPage />} />
+          <Route path="/news/write" element={<NewsWritePage />} />
           <Route path="/news/:id" element={<NewsDetailPage />} />
           <Route path="/members" element={<MembersPage />} />
           <Route path="/mypage" element={<MyPage />} />

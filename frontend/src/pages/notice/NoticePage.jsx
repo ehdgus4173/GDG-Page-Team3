@@ -20,7 +20,12 @@ function NoticePage() {
     <section className="container notice-page">
       <div className="notice-page-header">
         <h1 className="page-title">공지</h1>
-        <Button variant="primary">작성하기</Button>
+        <Button
+          variant="primary"
+          onClick={() => navigate("/notice/write")}
+        >
+          작성하기
+        </Button>
       </div>
 
       <div className="notice-page-divider" />

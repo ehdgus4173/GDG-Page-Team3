@@ -41,7 +41,12 @@ function NewsPage() {
       {/* Header */}
       <div className="news-header">
         <h1 className="page-title">소식</h1>
-        <Button variant="primary">작성하기</Button>
+        <Button
+          variant="primary"
+          onClick={() => navigate("/news/write")}
+        >
+          작성하기
+        </Button>
       </div>
 
       {/* Generation Filter */}
