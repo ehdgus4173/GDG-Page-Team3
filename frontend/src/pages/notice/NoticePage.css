@@ -1,0 +1,22 @@
+.notice-page {
+    padding-bottom: 80px;
+  }
+  
+  .notice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .notice-divider {
+    height: 1px;
+    background: var(--gray-04);
+    margin-bottom: 8px;
+  }
+  
+  .notice-list {
+    display: flex;
+    flex-direction: column;
+  }
+  

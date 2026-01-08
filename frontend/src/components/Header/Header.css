@@ -1,0 +1,52 @@
+.header {
+    width: 100%;
+    background-color: var(--white);
+  }
+  
+  .header-inner {
+    position: relative;
+  
+    display: flex;
+    align-items: center;
+  
+    height: 68px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  
+  
+  /* 좌 */
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .header-title {
+    display: flex;
+    flex-direction: column;
+    color: var(--gray-13);
+  }
+  
+  .header-title .caption {
+    color: var(--gray-09);
+  }
+  
+  .header-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  
+    display: flex;
+    justify-content: center;
+  }
+  
+  
+  /* 우 */
+  .header-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }

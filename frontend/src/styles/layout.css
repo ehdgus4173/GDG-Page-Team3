@@ -1,0 +1,12 @@
+/* 전체 페이지 공통 Grid */
+.layout {
+    width: 100%;
+  }
+  
+  /* Header / Main / Footer가 공유하는 Grid */
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  

@@ -1,0 +1,68 @@
+/* =========================
+   전체 네비게이션 pill
+========================= */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    width: fit-content;
+    height: 48px;                /* ⭐ Figma 기준 */
+  
+    padding: 0 24px;
+    gap: 32px;
+  
+    background-color: var(--white);
+    border-radius: 999px;
+  
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* =========================
+     기본 메뉴
+  ========================= */
+  .nav-item {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;              /* ⭐ 수직 중심 안정화 */
+  
+    color: var(--gray-07);
+    text-decoration: none;
+  
+    padding: 6px 10px;
+    border-radius: 999px;
+  
+    transition: color 0.2s ease;
+  }
+  
+  /* hover (디자인엔 없지만 UX 필수) */
+  .nav-item:hover {
+    color: var(--gray-10);
+  }
+  
+  /* =========================
+     활성 공통
+  ========================= */
+  .nav-item.active {
+    font-weight: 700;
+  }
+  
+  /* =========================
+     메뉴별 활성 색상 (전역 변수 기준)
+  ========================= */
+  .nav-item.active.main {
+    color: var(--blue);
+  }
+  
+  .nav-item.active.notice {
+    color: var(--red);
+  }
+  
+  .nav-item.active.news {
+    color: var(--yellow);
+  }
+  
+  .nav-item.active.members {
+    color: var(--green);
+  }
+  

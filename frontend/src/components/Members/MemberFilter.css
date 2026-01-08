@@ -1,0 +1,28 @@
+.member-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  
+  .filter-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  
+  .filter-btn {
+    padding: 6px 12px;
+    font-size: var(--body-2-size);
+    color: var(--gray-11);
+    background: var(--gray-02);
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .filter-btn.active {
+    background: var(--gray-13);
+    color: var(--white);
+  }
+  
