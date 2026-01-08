@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom"; // ✅ 추가
 import List from "../../components/List/PostList";
 import Pagination from "../../components/Pagination/Pagination";
 import MemberFilter from "../../components/Members/MemberFilter";
@@ -7,35 +8,33 @@ import "./NewsPage.css";
 
 function NewsPage() {
   const [page, setPage] = useState(1);
+  const navigate = useNavigate(); // ✅ 추가
 
   // 더미 데이터
   const news = Array.from({ length: 10 }).map((_, idx) => ({
-    id: idx,
+    id: idx + 1, // ✅ 0 말고 1부터 추천(라우팅/키 관리 안정)
     title: "공지사항 더미텍스트공지사항 더미텍스트",
     date: "2025.12.31",
     image: "https://placeholder.co/120x80",
-    generation: idx % 2 === 0 ? "1기" : "2기"
+    generation: idx % 2 === 0 ? "1기" : "2기",
   }));
 
   // 필터 정의
   const filters = [
     {
       key: "generation",
-      options: ["전체", "1기", "2기", "3기", "4기", "5기"]
-    }
+      options: ["전체", "1기", "2기", "3기", "4기", "5기"],
+    },
   ];
 
   const [selected, setSelected] = useState({
-    generation: "전체"
+    generation: "전체",
   });
 
-  // ✅ 필터링 로직
   const filteredNews =
     selected.generation === "전체"
       ? news
-      : news.filter(
-          (item) => item.generation === selected.generation
-        );
+      : news.filter((item) => item.generation === selected.generation);
 
   return (
     <section className="container news-page">
@@ -49,9 +48,7 @@ function NewsPage() {
       <MemberFilter
         filters={filters}
         selected={selected}
-        onChange={(key, value) =>
-          setSelected({ [key]: value })
-        }
+        onChange={(key, value) => setSelected({ [key]: value })}
       />
 
       <div className="news-divider" />
@@ -65,16 +62,13 @@ function NewsPage() {
             title={item.title}
             date={item.date}
             image={item.image}
+            onClick={() => navigate(`/news/${item.id}`)} // ✅ 추가 (상세로 이동)
           />
         ))}
       </div>
 
       {/* Pagination */}
-      <Pagination
-        currentPage={page}
-        totalPages={5}
-        onPageChange={setPage}
-      />
+      <Pagination currentPage={page} totalPages={5} onPageChange={setPage} />
     </section>
   );
 }

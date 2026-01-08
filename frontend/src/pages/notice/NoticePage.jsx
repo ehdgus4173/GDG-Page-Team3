@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import List from "../../components/List/PostList";
 import Pagination from "../../components/Pagination/Pagination";
 import Button from "../../components/Button/Button";
@@ -6,10 +7,10 @@ import "./NoticePage.css";
 
 function NoticePage() {
   const [page, setPage] = useState(1);
+  const navigate = useNavigate();
 
-  // 더미 데이터 (UI 확인용)
   const notices = Array.from({ length: 10 }).map((_, idx) => ({
-    id: idx,
+    id: idx + 1,
     title: "공지사항 더미텍스트공지사항 더미텍스트",
     date: "2025.12.31",
     image: "https://placeholder.co/120x80",
@@ -17,19 +18,14 @@ function NoticePage() {
 
   return (
     <section className="container notice-page">
-      {/* Header */}
-      <div className="notice-header">
+      <div className="notice-page-header">
         <h1 className="page-title">공지</h1>
-
-        {/* 👇 기존 Button 컴포넌트 활용 */}
         <Button variant="primary">작성하기</Button>
       </div>
 
-      {/* Divider */}
-      <div className="notice-divider" />
+      <div className="notice-page-divider" />
 
-      {/* List */}
-      <div className="notice-list">
+      <div className="notice-page-list">
         {notices.map((notice, index) => (
           <List
             key={notice.id}
@@ -37,6 +33,7 @@ function NoticePage() {
             title={notice.title}
             date={notice.date}
             image={notice.image}
+            onClick={() => navigate(`/notice/${notice.id}`)}
           />
         ))}
       </div>

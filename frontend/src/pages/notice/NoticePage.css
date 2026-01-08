@@ -1,22 +1,25 @@
 .notice-page {
-    padding-bottom: 80px;
-  }
-  
-  .notice-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-  
-  .notice-divider {
-    height: 1px;
-    background: var(--gray-04);
-    margin-bottom: 8px;
-  }
-  
-  .notice-list {
-    display: flex;
-    flex-direction: column;
-  }
-  
+  padding-bottom: 80px;
+}
+
+/* ✅ NewsPage와 동일하게: 제목 + 작성하기 한 줄 정렬 */
+.notice-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+/* ✅ divider 1줄만 */
+.notice-page-divider {
+  height: 1px;
+  background: var(--gray-06, #e5e7eb);
+  margin: 16px 0;
+}
+
+/* ✅ list 간격 */
+.notice-page-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

@@ -1,0 +1,13 @@
+.notice-image-wrap {
+    margin: 28px 0 20px;
+  }
+  
+  .notice-image {
+    width: 100%;
+    max-height: 520px;
+    object-fit: cover;
+    border-radius: 10px;
+    display: block;
+    background: var(--gray-03);
+  }
+  
