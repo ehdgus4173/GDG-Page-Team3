@@ -24,9 +24,6 @@ public enum ProfileErrorCode implements BaseErrorCode {
     @ExplainError("이름이 null 또는 blank인 경우 발생합니다.")
     NAME_REQUIRED(BAD_REQUEST, "PROFILE_400_1", "이름은 필수입니다."),
 
-    @ExplainError("이메일 형식이 올바르지 않습니다.")
-    INVALID_EMAIL_FORMAT(BAD_REQUEST, "PROFILE_400_3", "이메일 형식이 올바르지 않습니다."),
-
     @ExplainError("학번이 null 또는 blank인 경우 발생합니다.")
     STUDENT_ID_REQUIRED(BAD_REQUEST, "PROFILE_400_4", "학번은 필수입니다."),
 
@@ -62,9 +59,6 @@ public enum ProfileErrorCode implements BaseErrorCode {
 
     @ExplainError("새 비밀번호가 현재 비밀번호와 동일합니다.")
     SAME_AS_CURRENT_PASSWORD(BAD_REQUEST, "PROFILE_400_15", "새 비밀번호는 현재 비밀번호와 달라야 합니다."),
-
-    @ExplainError("비밀번호 재설정 토큰이 만료되었거나 이미 사용된 경우 발생합니다.")
-    PASSWORD_RESET_TOKEN_EXPIRED(BAD_REQUEST, "PROFILE_400_16", "비밀번호 재설정 토큰이 만료되었거나 유효하지 않습니다."),
 
     @ExplainError("프로필 이미지 파일 크기가 제한을 초과한 경우 발생합니다.")
     IMAGE_SIZE_EXCEEDED(BAD_REQUEST, "PROFILE_400_20", "프로필 이미지 파일 크기가 너무 큽니다."),
