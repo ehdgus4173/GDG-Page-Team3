@@ -6,9 +6,9 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 @Getter
-public class SignInRequest {
+public class LogoutRequest {
 
-	@Schema(description = "Firebase ID 토큰 (클라이언트 로그인 후 전달)", example = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...")
+	@Schema(description = "Firebase ID 토큰", example = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...")
 	@NotBlank(message = "idToken은 필수입니다.")
 	private String idToken;
 
@@ -17,4 +17,3 @@ public class SignInRequest {
 	@Email(message = "올바른 이메일 형식이 아닙니다.")
 	private String email;
 }
-

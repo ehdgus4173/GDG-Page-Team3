@@ -4,6 +4,8 @@ import com.example.backend.auth.exception.PasswordResetErrorCode;
 import com.example.backend.auth.exception.PasswordResetException;
 import com.example.backend.auth.exception.SignUpErrorCode;
 import com.example.backend.auth.exception.SignUpException;
+import com.example.backend.auth.exception.SignInErrorCode;
+import com.example.backend.auth.exception.SignInException;
 import com.google.firebase.auth.ActionCodeSettings;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
@@ -180,6 +182,20 @@ public class FirebaseService {
 		} catch (FirebaseAuthException e) {
 			log.error("Failed to update password for {}: {}", email, e.getMessage());
 			throw new PasswordResetException(PasswordResetErrorCode.FIREBASE_PASSWORD_RESET_EMAIL_FAILED);
+		}
+	}
+
+	/**
+	 * Refresh Token 폐기 (로그아웃 처리)
+	 * @param uid Firebase UID
+	 */
+	public void revokeRefreshTokens(String uid) {
+		try {
+			firebaseAuth.revokeRefreshTokens(uid);
+			log.info("Refresh tokens revoked for uid={}", uid);
+		} catch (FirebaseAuthException e) {
+			log.error("Failed to revoke refresh tokens for uid={}: {}", uid, e.getMessage());
+			throw new SignInException(SignInErrorCode.LOGOUT_FAILED);
 		}
 	}
 }
