@@ -19,9 +19,6 @@ public class ProfileInfoExceptionDocs implements SwaggerExampleExceptions {
     @ExplainError("수정할 수 없는 필드(예: 변경 불가능한 계정 정보 등)를 수정하려 할 때 발생합니다.")
     public GlobalCodeException 수정_불가_필드 = new ProfileException(ProfileErrorCode.INVALID_UPDATE_FIELD);
 
-    @ExplainError("이미 등록된 이메일이나 학번으로 수정을 시도할 때 발생합니다.")
-    public GlobalCodeException 중복된_정보 = new ProfileException(ProfileErrorCode.EMAIL_ALREADY_EXISTS);
-
     @ExplainError("프로필 수정 권한이 없는 경우 발생합니다.")
     public GlobalCodeException 프로필_수정_권한_없음 = new ProfileException(ProfileErrorCode.PROFILE_UPDATE_FORBIDDEN);
 }
