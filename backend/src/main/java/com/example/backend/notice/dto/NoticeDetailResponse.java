@@ -11,11 +11,11 @@ public record NoticeDetailResponse(
         String content,
         int viewCount,
         LocalDateTime createdAt,
-        List<FileDto> files
-) {
+        List<FileDto> files,
+        Long authorId) {
     public record FileDto(
-       Long id,
-       String fileUrl,
-       NoticeFileType fileType
-    ){}
+            Long id,
+            String fileUrl,
+            NoticeFileType fileType) {
+    }
 }

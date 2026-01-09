@@ -1,13 +1,14 @@
 package com.example.backend.notice.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import com.example.backend.notice.enums.NoticeFileType;
+import java.util.List;
 
 public record CreateNoticeRequest(
-        @NotBlank
-        @Size(max=200)
         String title,
-
-        @NotBlank
-        String content
-) {}
+        String content,
+        List<FileDto> files) {
+    public record FileDto(
+            String fileUrl,
+            NoticeFileType fileType) {
+    }
+}

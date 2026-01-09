@@ -1,13 +1,14 @@
 package com.example.backend.news.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import com.example.backend.news.enums.NewsFileType;
+import java.util.List;
 
 public record CreateNewsRequest(
-        @NotBlank
-        @Size(max=200)
-        String title,
-
-        @NotBlank
-        String content
-) {}
+                String title,
+                String content,
+                List<FileDto> files) {
+        public record FileDto(
+                        String fileUrl,
+                        NewsFileType fileType) {
+        }
+}
