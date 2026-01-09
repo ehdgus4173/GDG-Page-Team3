@@ -116,20 +116,20 @@ const SignupPage = () => {
         form.password
       );
       // 2) 인증 메일 발송 (인증 완료 후 /signup/verified로 이동)
-      const verificationUrl = `${window.location.origin}/signup/verified`;
+      const verificationUrl = `${window.location.origin}/signup/email-verified`;
       await sendEmailVerification(userCredential.user, {
         url: verificationUrl,
         handleCodeInApp: false,
       });
       await signOut(auth);
-      // 새로고침/이동을 대비해 가입 정보를 세션에 보관
-      sessionStorage.setItem(
-        "signup_form",
-        JSON.stringify({
-          ...form,
-          email,
-        })
-      );
+      // 새로고침/탭 이동을 대비해 가입 정보를 저장
+      const saved = JSON.stringify({
+        ...form,
+        email,
+        savedAt: Date.now(),
+      });
+      sessionStorage.setItem("signup_form", saved);
+      localStorage.setItem("signup_form", saved);
       setMessage("인증 메일을 보냈습니다. 메일을 확인하고 인증을 완료해주세요.");
       setResendCooldown(60);
       setMailSent(true);

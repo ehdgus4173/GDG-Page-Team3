@@ -20,18 +20,6 @@ public enum PasswordResetErrorCode implements BaseErrorCode {
 	@ExplainError("이메일 도메인이 올바르지 않습니다. @seoultech.ac.kr 도메인만 사용 가능합니다.")
 	INVALID_EMAIL_DOMAIN(BAD_REQUEST, "AUTH_400_7", "이메일 도메인이 올바르지 않습니다."),
 
-	@ExplainError("비밀번호 재설정 인증이 완료되지 않았습니다.")
-	PASSWORD_RESET_NOT_VERIFIED(BAD_REQUEST, "AUTH_400_8", "비밀번호 재설정 인증이 완료되지 않았습니다."),
-
-	@ExplainError("비밀번호 재설정 토큰이 만료되었습니다.")
-	PASSWORD_RESET_TOKEN_EXPIRED(BAD_REQUEST, "AUTH_400_9", "비밀번호 재설정 토큰이 만료되었습니다."),
-
-	@ExplainError("비밀번호 재설정 토큰을 찾을 수 없습니다.")
-	PASSWORD_RESET_TOKEN_NOT_FOUND(NOT_FOUND, "AUTH_404_3", "비밀번호 재설정 토큰을 찾을 수 없습니다."),
-
-	@ExplainError("이미 사용된 비밀번호 재설정 토큰입니다.")
-	PASSWORD_RESET_TOKEN_ALREADY_USED(BAD_REQUEST, "AUTH_400_10", "이미 사용된 비밀번호 재설정 토큰입니다."),
-
 	@ExplainError("Firebase 비밀번호 재설정 이메일 발송에 실패했습니다.")
 	FIREBASE_PASSWORD_RESET_EMAIL_FAILED(INTERNAL_SERVER, "AUTH_500_2", "비밀번호 재설정 이메일 발송에 실패했습니다."),
 

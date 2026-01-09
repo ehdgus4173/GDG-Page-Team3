@@ -16,6 +16,7 @@ import FindPasswordPage from "./pages/auth/FindPasswordPage";
 import PasswordResetActionPage from "./pages/auth/PasswordResetActionPage";
 import SignupPage from "./pages/auth/SignupPage";
 import SignupVerifiedPage from "./pages/auth/SignupVerifiedPage";
+import SignupEmailVerifiedNoticePage from "./pages/auth/SignupEmailVerifiedNoticePage";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/auth/action" element={<PasswordResetActionPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/signup/verified" element={<SignupVerifiedPage />} />
+          <Route path="/signup/email-verified" element={<SignupEmailVerifiedNoticePage />} />
         </Route>
       </Routes>
     </BrowserRouter>
