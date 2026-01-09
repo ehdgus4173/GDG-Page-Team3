@@ -16,24 +16,19 @@ import java.util.List;
 @AllArgsConstructor
 public class MyProfileResponse {
 
-    @NotNull
     private Long profileId;
 
-    @NotBlank
     private String name;
 
-    @NotNull
     private int generation;
 
-    @NotBlank
     private String part;
 
     private String imageUrl;
 
-    @Size(max = 200)
-    private String introduction;
+    private String bio;
 
-    private List<String> techStacks;
+    private List<TechStackResponse> techStacks;
 
     @Valid
     private SnsLinks snsLinks;

@@ -11,16 +11,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MemberListResponse {
 
-    @NotNull
     private Long profileId;
 
-    @NotBlank
     private String name;
 
-    @NotNull
     private int generation;
 
-    @NotBlank
     private String part;
 
     private String imageUrl;

@@ -1,6 +1,7 @@
 package com.example.backend.member.entity;
 
 import com.example.backend.member.enums.MemberRole;
+import com.example.backend.profile.entity.Profile;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -56,6 +57,9 @@ public class User {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Profile profile;
 
     /* ===============================
        Domain Methods

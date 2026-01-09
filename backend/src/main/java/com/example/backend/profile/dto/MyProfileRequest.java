@@ -14,7 +14,7 @@ import java.util.List;
 public class MyProfileRequest {
 
     @Size(max=200)
-    private String introduction;
+    private String bio;
 
     private List<String> techStacks;
 

@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProfileImageUrlResponse {
 
-    @NotBlank
     private String imageUrl;
 }
