@@ -37,6 +37,9 @@ dependencies {
     // Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
+    // Firebase Admin
+    implementation 'com.google.firebase:firebase-admin:9.4.0'
+
     // Swagger (Spring Boot 3.x 호환)
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 

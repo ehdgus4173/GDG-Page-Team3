@@ -1,0 +1,211 @@
+/* 전체 */
+.post-editor {
+    padding-bottom: 80px;
+  }
+  
+  /* 상단 저장 버튼 바 */
+  .post-editor-topbar {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 16px;
+  }
+  
+  .post-editor-save {
+    border: none;
+    background: var(--gray-15);
+    color: var(--white);
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .post-editor-save:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+  
+  /* 본문 레이아웃 (왼쪽 사진 버튼 + 메인) */
+  .post-editor-body {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  
+  .post-editor-left {
+    display: flex;
+    justify-content: center;
+    padding-top: 120px;
+  }
+  
+  .imagepicker-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-06);
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+  }
+  
+  .post-editor-main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  /* 제목 */
+  .post-editor-title {
+    border: 1px solid var(--gray-06);
+    border-radius: 10px;
+    background: var(--white);
+    padding: 22px 24px;
+  }
+  
+  .post-editor-title-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+  }
+  
+  /* 내용 카드 */
+  .post-editor-card {
+    border: 1px solid var(--gray-06);
+    border-radius: 10px;
+    background: var(--white);
+    padding: 18px 18px;
+  }
+  
+  /* blocks */
+  .post-editor-blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .block {
+    position: relative;
+  }
+  
+  .block-textarea {
+    width: 100%;
+    min-height: 360px;
+    border: none;
+    outline: none;
+    resize: vertical;
+    background: transparent;
+  }
+  
+  .block-image-preview {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+    border: 1px solid var(--gray-06);
+  }
+  
+  /* block toolbar */
+  .block-toolbar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    gap: 6px;
+  }
+  
+  .block-toolbar button {
+    border: 1px solid var(--gray-06);
+    background: var(--white);
+    border-radius: 6px;
+    padding: 6px 8px;
+    cursor: pointer;
+  }
+  
+  .block-toolbar button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  
+  /* attachments */
+  .post-editor-attach {
+    margin-top: 8px;
+  }
+  
+  .post-editor-attach-label {
+    margin: 10px 0 8px;
+    color: var(--gray-11);
+  }
+  
+  /* dropzone */
+  .attach-dropzone {
+    border: 2px dashed var(--gray-07);
+    border-radius: 10px;
+    padding: 28px 16px;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+    background: var(--white);
+  }
+  
+  .attach-dropzone.is-over {
+    background: var(--gray-02);
+  }
+  
+  .attach-dropzone-inner {
+    text-align: center;
+  }
+  
+  .attach-plus {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--gray-07);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  
+  /* attachment list */
+  .attach-list {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .attach-item {
+    border: 1px solid var(--gray-12);
+    border-radius: 10px;
+    padding: 14px 14px;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .attach-item-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  
+  .attach-file-name {
+    color: var(--gray-14);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .attach-remove {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  

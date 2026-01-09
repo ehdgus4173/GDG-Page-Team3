@@ -1,0 +1,26 @@
+.news-page {
+    padding-bottom: 80px;
+  }
+  
+  /* header */
+  .news-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  
+  /* divider */
+  .news-divider {
+    height: 1px;
+    background: var(--gray-06, #e5e7eb);
+    margin: 16px 0;
+  }
+  
+  /* list */
+  .news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  

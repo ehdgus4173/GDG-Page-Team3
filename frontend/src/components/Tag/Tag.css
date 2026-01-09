@@ -1,0 +1,17 @@
+.tag {
+    padding: 6px 14px;
+    border-radius: 999px;
+  
+    font: var(--caption);
+    font-weight: 600;
+  
+    border: 1.5px solid var(--blue-b300);
+    color: var(--blue-b300);
+    background: var(--white);
+  }
+  
+  .tag.active {
+    background: var(--blue-b300);
+    color: var(--white);
+  }
+  

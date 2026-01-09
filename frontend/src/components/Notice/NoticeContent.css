@@ -1,0 +1,14 @@
+.notice-content {
+    padding: 28px 0 56px;
+    color: var(--gray-13);
+    white-space: pre-line;
+  }
+  
+  /* 혹시 전역 타이포 클래스가 안 먹는 상황 대비 */
+  .notice-content.body-long-1 {
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 400;
+    letter-spacing: -0.6px;
+  }
+  

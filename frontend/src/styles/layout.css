@@ -1,0 +1,29 @@
+/* 전체 페이지 공통 Grid */
+/* ✅ 화면 높이를 꽉 채우게 */
+html, body, #root {
+  height: 100%;
+}
+/* Layout 전체를 세로로 꽉 */
+.layout {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+  
+  /* Header / Main / Footer가 공유하는 Grid */
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .layout-content {
+    flex: 1;
+    background: #fff; 
+  }
+  /* write페이지에서는 배경색상 바뀜 */
+  .layout-content.layout-content--write {
+    flex: 1;
+    background: var(--gray-02);
+    padding: 40px 0; 
+  }
+  

@@ -1,0 +1,70 @@
+.btn {
+    height: 44px;
+    padding: 0 24px;
+    border-radius: 12px;
+  
+    /* 🔥 핵심: font fallback */
+    font: var(--subhead-03, 600 14px/1.2 sans-serif);
+  
+    cursor: pointer;
+    border: none;
+  
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  
+    /* primary hover */
+    .btn-primary {
+      background: #000;
+      color: #fff; /* 기본부터 흰색 */
+    }
+
+    /* hover */
+    .btn-primary:not(.disabled):hover {
+      background: linear-gradient(
+        180deg,
+        #1a1a1a 0%,
+        #000000 100%
+      );
+      color: #ffffff; /* 🔥 핵심 */
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+      transform: translateY(-1px);
+    }
+
+  
+  /* outline */
+  .btn-outline {
+    background: var(--white);
+    color: var(--gray-15);
+    border: 1.5px solid var(--gray-15);
+  }
+  
+  /* disabled */
+  .btn.disabled {
+    background: var(--gray-06);
+    color: var(--white);
+    cursor: not-allowed;
+  }
+  
+  /* ===== size ===== */
+.btn-sm {
+  height: 36px;
+  padding: 0 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* ===== outline gray ===== */
+.btn-outline-gray {
+  background: #fff;
+  color: #111;                 /* 텍스트 검정 */
+  border: 1.5px solid #111;    /* 🔥 테두리 검정 */
+  border-radius: 6px;          /* 🔥 더 직사각형 */
+}
+
+/* hover */
+.btn-outline-gray:hover {
+  background: #f7f7f7;
+  border-color: #000;
+}
+

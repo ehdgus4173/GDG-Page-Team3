@@ -1,0 +1,12 @@
+.notice-detail-page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 72px 0 120px;
+  }
+  
+  .notice-detail-divider {
+    height: 1px;
+    background: var(--gray-05);
+    margin-top: 18px;
+  }
+  
