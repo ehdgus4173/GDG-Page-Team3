@@ -1,14 +1,28 @@
 import "./Button.css";
 
-function Button({ variant = "primary", disabled, children }) {
+function Button({
+  variant = "primary",
+  size = "md",
+  disabled = false,
+  onClick,
+  type = "button",
+  children,
+  ...rest
+}) {
   return (
     <button
-      className={`btn btn-${variant} ${disabled ? "disabled" : ""}`}
+      type={type}
+      className={`btn btn-${variant} btn-${size} ${
+        disabled ? "disabled" : ""
+      }`}
       disabled={disabled}
+      onClick={onClick}
+      {...rest}
     >
       {children}
     </button>
   );
 }
+
 
 export default Button;

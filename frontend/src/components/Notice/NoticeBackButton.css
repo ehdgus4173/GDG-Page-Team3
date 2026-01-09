@@ -1,0 +1,34 @@
+.notice-back {
+    margin-top: 8px;
+  }
+  
+  .notice-back button {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 700;
+    letter-spacing: -0.6px;
+    color: var(--gray-15);
+  
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 0;
+  }
+  
+  .notice-back button::before {
+    content: "←";
+    font-size: 16px;
+    line-height: 16px;
+    transform: translateY(-1px);
+    color: var(--gray-15);
+  }
+  
+  .notice-back button:hover {
+    color: var(--gray-12);
+  }
+  

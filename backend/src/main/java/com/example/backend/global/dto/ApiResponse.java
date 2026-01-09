@@ -28,4 +28,8 @@ public class ApiResponse<T> {
     public static ApiResponse<Void> success() {
         return new ApiResponse<>(true, 200, "success", null);
     }
+
+    public static ApiResponse<String> success(String message) {
+        return new ApiResponse<>(true, 200, message, null);
+    }
 }

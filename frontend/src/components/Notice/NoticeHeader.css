@@ -1,0 +1,42 @@
+.notice-header {
+    display: flex;
+    flex-direction: column; /* ✅ 제목 아래로 메타 내려감 */
+    align-items: flex-start;
+    gap: 10px;
+  
+    padding-bottom: 32px;
+  }
+  
+  .notice-title {
+    font-size: 32px;
+    line-height: 42px;
+    font-weight: 700;
+    letter-spacing: -0.6px;
+    color: var(--gray-15);
+    margin: 0 0 10px 0;
+  }
+  
+  .notice-meta {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: var(--gray-10);
+  }
+  
+  .notice-meta span + span {
+    position: relative;
+    padding-left: 12px;
+  }
+  
+  .notice-meta span + span::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    background: var(--gray-08);
+  }
+  

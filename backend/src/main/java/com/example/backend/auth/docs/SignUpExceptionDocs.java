@@ -12,8 +12,8 @@ import com.example.backend.global.interfaces.SwaggerExampleExceptions;
 @ExceptionDoc
 public class SignUpExceptionDocs implements SwaggerExampleExceptions {
 
-	@ExplainError("이메일 도메인이 올바르지 않습니다. @seoultech.ac.kr 도메인만 사용할 수 있습니다.")
-	public GlobalCodeException 이메일_도메인_올바르지_않음 = new SignUpException(SignUpErrorCode.INVALID_EMAIL_FORMAT);
+	@ExplainError("학교 이메일만 사용할 수 있습니다.")
+	public GlobalCodeException 이메일_도메인_올바르지_않음 = new SignUpException(SignUpErrorCode.EMAIL_DOMAIN_INVALID);
 
 	@ExplainError("이미 존재하는 이메일입니다.")
 	public GlobalCodeException 이메일_이미_존재함 = new SignUpException(SignUpErrorCode.EMAIL_ALREADY_EXISTS);
@@ -21,11 +21,14 @@ public class SignUpExceptionDocs implements SwaggerExampleExceptions {
 	@ExplainError("이메일 형식이 올바르지 않습니다.")
 	public GlobalCodeException 이메일_형식_올바르지_않음 = new SignUpException(SignUpErrorCode.INVALID_EMAIL_FORMAT);
 
-	@ExplainError("비밀번호 규칙을 만족하지 않습니다.")
-	public GlobalCodeException 비밀번호_규칙_위반 = new SignUpException(SignUpErrorCode.INVALID_PASSWORD_FORMAT);
-
 	@ExplainError("필수 필드가 누락되었습니다.")
 	public GlobalCodeException 필수_필드_누락 = new SignUpException(SignUpErrorCode.REQUIRED_FIELD_MISSING);
+
+	@ExplainError("Firebase 사용자 생성/연동에 실패했습니다.")
+	public GlobalCodeException Firebase_사용자_생성_실패 = new SignUpException(SignUpErrorCode.FIREBASE_AUTH_SERVICE_ERROR);
+
+	@ExplainError("이메일 인증이 완료되지 않았습니다.")
+	public GlobalCodeException 이메일_인증_미완료 = new SignUpException(SignUpErrorCode.EMAIL_NOT_VERIFIED);
 
 	@ExplainError("밸리데이션 (검증 과정 수행 중) 발생하는 오류입니다.")
 	public GlobalCodeException 검증_오류 = new GlobalException(GlobalErrorCode.ARGUMENT_NOT_VALID_ERROR);
