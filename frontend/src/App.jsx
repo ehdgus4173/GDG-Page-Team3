@@ -13,6 +13,7 @@ import NoticeWritePage from "./pages/notice/NoticeWritePage";
 import NewsWritePage from "./pages/news/NewsWritePage";
 import LoginPage from "./pages/auth/LoginPage";
 import FindPasswordPage from "./pages/auth/FindPasswordPage";
+import PasswordResetActionPage from "./pages/auth/PasswordResetActionPage";
 import SignupPage from "./pages/auth/SignupPage";
 import SignupVerifiedPage from "./pages/auth/SignupVerifiedPage";
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/find-password" element={<FindPasswordPage />} />
+          <Route path="/auth/action" element={<PasswordResetActionPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/signup/verified" element={<SignupVerifiedPage />} />
         </Route>
