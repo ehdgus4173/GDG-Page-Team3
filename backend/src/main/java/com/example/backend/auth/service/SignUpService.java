@@ -7,6 +7,7 @@ import com.example.backend.auth.exception.SignUpException;
 import com.example.backend.member.entity.User;
 import com.example.backend.member.enums.MemberRole;
 import com.example.backend.member.repository.UserRepository;
+import com.example.backend.member.support.PartNormalizer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,17 +29,19 @@ public class SignUpService {
 
 	@Transactional
 	public String confirmSignUp(SignUpConfirmRequest request) {
+		final String email = request.getEmail().trim().toLowerCase();
+
 		// 1. 이메일 도메인/형식 검증
-		validateEmailDomain(request.getEmail());
-		validateEmailFormat(request.getEmail());
+		validateEmailDomain(email);
+		validateEmailFormat(email);
 
 		// 2. 중복 이메일 확인 (이미 DB에 존재하는지)
-		checkDuplicateEmail(request.getEmail());
+		checkDuplicateEmail(email);
 
 		// 3. Firebase 토큰 검증 및 이메일 일치 확인
 		FirebaseToken token = firebaseService.verifyIdToken(request.getIdToken());
-		if (token.getEmail() == null || !token.getEmail().equals(request.getEmail())) {
-			log.warn("Email mismatch: request={}, token={}", request.getEmail(), token.getEmail());
+		if (token.getEmail() == null || !token.getEmail().equalsIgnoreCase(email)) {
+			log.warn("Email mismatch: request={}, token={}", email, token.getEmail());
 			throw new SignUpException(SignUpErrorCode.FIREBASE_TOKEN_VERIFICATION_FAILED);
 		}
 
@@ -48,8 +51,9 @@ public class SignUpService {
 			throw new SignUpException(SignUpErrorCode.EMAIL_NOT_VERIFIED);
 		}
 
-		// 5. MemberRole 변환
-		MemberRole role = convertToMemberRole(request.getPosition());
+		// 5. MemberRole 변환 및 파트 정규화
+		MemberRole role = MemberRole.fromLocalized(request.getPosition());
+		String normalizedPart = PartNormalizer.normalize(request.getPart());
 
 		// 6. DB에 사용자 저장 (비밀번호는 Firebase에서 관리하므로 placeholder)
 		String placeholderPassword = passwordEncoder.encode("firebase-auth");
@@ -58,7 +62,7 @@ public class SignUpService {
 			.name(request.getName())
 			.generation(request.getGrade())
 			.role(role)
-			.part(request.getPart())
+			.part(normalizedPart)
 			.studentId(request.getStdId())
 			.department(request.getDepartment())
 			.email(request.getEmail())
@@ -109,26 +113,11 @@ public class SignUpService {
 	 * 비밀번호 검증
 	 */
 	private void validatePassword(String password) {
-		if (password == null || password.length() < 8) {
+		if (password == null || password.length() < 8 || !password.matches(".*[!@#$%^&*()\\-_=+\\[{\\]}|;:'\",<.>/?].*")) {
 			log.warn("Password does not meet requirements");
 			throw new SignUpException(SignUpErrorCode.INVALID_PASSWORD_FORMAT);
 		}
 	}
 
-	/**
-	 * position 문자열을 MemberRole enum으로 변환
-	 */
-	private MemberRole convertToMemberRole(String position) {
-		if (position == null || position.isBlank()) {
-			throw new SignUpException(SignUpErrorCode.REQUIRED_FIELD_MISSING);
-		}
-
-		try {
-			return MemberRole.valueOf(position.toUpperCase());
-		} catch (IllegalArgumentException e) {
-			log.warn("Invalid position: {}", position);
-			throw new SignUpException(SignUpErrorCode.REQUIRED_FIELD_MISSING);
-		}
-	}
 }
 

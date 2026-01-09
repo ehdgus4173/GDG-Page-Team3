@@ -25,7 +25,7 @@ const LoginPage = () => {
                 placeholder="학교 이메일 아이디"
                 onChange={() => setIsError(false)}
               />
-              <span className="email-domain">@seoultech.ac.kr</span>
+              <span className="email-domain">@g.seoultech.ac.kr</span>
             </div>
           </div>
 

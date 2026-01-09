@@ -14,6 +14,7 @@ import NewsWritePage from "./pages/news/NewsWritePage";
 import LoginPage from "./pages/auth/LoginPage";
 import FindPasswordPage from "./pages/auth/FindPasswordPage";
 import SignupPage from "./pages/auth/SignupPage";
+import SignupVerifiedPage from "./pages/auth/SignupVerifiedPage";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/find-password" element={<FindPasswordPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/signup/verified" element={<SignupVerifiedPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

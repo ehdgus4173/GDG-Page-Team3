@@ -115,7 +115,11 @@
 
 .form-group.dropdown {
   position: relative;
-  z-index: 10;
+  z-index: 1;
+}
+
+.form-group.dropdown.open {
+  z-index: 100;
 }
 
 /* trigger = input처럼 */
@@ -149,7 +153,7 @@
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 
-  z-index: 20;
+  z-index: 200;
 }
 
 /* dropdown item */
