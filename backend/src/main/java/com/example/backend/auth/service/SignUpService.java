@@ -2,7 +2,6 @@ package com.example.backend.auth.service;
 
 import com.example.backend.auth.config.AuthProperties;
 import com.example.backend.auth.dto.SignUpConfirmRequest;
-import com.example.backend.auth.dto.SignUpRequest;
 import com.example.backend.auth.exception.SignUpErrorCode;
 import com.example.backend.auth.exception.SignUpException;
 import com.example.backend.member.entity.User;
@@ -26,38 +25,6 @@ public class SignUpService {
 	private final PasswordEncoder passwordEncoder;
 	private final FirebaseService firebaseService;
 	private final AuthProperties authProperties;
-
-	@Transactional
-	public String signUp(SignUpRequest request) {
-		// 1. 이메일 도메인 검증
-		validateEmailDomain(request.getEmail());
-
-		// 2. 이메일 형식 검증
-		validateEmailFormat(request.getEmail());
-
-		// 3. 중복 이메일 확인 (DB에 이미 존재하는지)
-		checkDuplicateEmail(request.getEmail());
-
-		// 4. 비밀번호 검증
-		validatePassword(request.getPassword());
-
-		// 5. MemberRole 변환 (position -> role)
-		MemberRole role = convertToMemberRole(request.getPosition());
-
-		// 6. Firebase에 사용자 생성 (비밀번호 포함)
-		try {
-			firebaseService.createFirebaseUser(request.getEmail(), request.getPassword());
-		} catch (Exception e) {
-			log.error("Failed to create Firebase user: {}", e.getMessage());
-			throw new SignUpException(SignUpErrorCode.FIREBASE_AUTH_SERVICE_ERROR);
-		}
-
-		// 7. DB 저장은 하지 않음. 인증 완료 후 confirmSignUp에서 저장.
-		log.info("Firebase user created (pending email verification): {}", request.getEmail());
-
-		// 8. 응답 메시지 반환
-		return "회원가입이 접수되었습니다. 이메일을 확인해 인증을 완료해주세요.";
-	}
 
 	@Transactional
 	public String confirmSignUp(SignUpConfirmRequest request) {

@@ -31,7 +31,7 @@ public class SecurityConfig {
                                 "/docs/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
-                                "/swagger-resources/**",
+                                "/swagger-resources/**"
                         ).permitAll()
                         // Auth API 경로 (모두 허용)
                         .requestMatchers("/api/auth/**").permitAll()

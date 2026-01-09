@@ -21,9 +21,6 @@ public class SignUpExceptionDocs implements SwaggerExampleExceptions {
 	@ExplainError("이메일 형식이 올바르지 않습니다.")
 	public GlobalCodeException 이메일_형식_올바르지_않음 = new SignUpException(SignUpErrorCode.INVALID_EMAIL_FORMAT);
 
-	@ExplainError("비밀번호 규칙을 만족하지 않습니다.")
-	public GlobalCodeException 비밀번호_규칙_위반 = new SignUpException(SignUpErrorCode.INVALID_PASSWORD_FORMAT);
-
 	@ExplainError("필수 필드가 누락되었습니다.")
 	public GlobalCodeException 필수_필드_누락 = new SignUpException(SignUpErrorCode.REQUIRED_FIELD_MISSING);
 

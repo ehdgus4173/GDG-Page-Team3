@@ -48,10 +48,7 @@ public enum SignUpErrorCode implements BaseErrorCode {
 	EMAIL_NOT_VERIFIED(UNAUTHORIZED, "AUTH_401_3", "이메일 인증을 완료해주세요."),
 
 	@ExplainError("필수 필드가 누락되었습니다.")
-	REQUIRED_FIELD_MISSING(BAD_REQUEST, "AUTH_400_5", "필수 필드가 누락되었습니다."),
-
-	@ExplainError("비밀번호 규칙을 만족하지 않습니다.")
-	INVALID_PASSWORD_FORMAT(BAD_REQUEST, "AUTH_400_6", "비밀번호 규칙을 만족하지 않습니다.");
+	REQUIRED_FIELD_MISSING(BAD_REQUEST, "AUTH_400_5", "필수 필드가 누락되었습니다.");
 
 	private final Integer status;
 	private final String code;

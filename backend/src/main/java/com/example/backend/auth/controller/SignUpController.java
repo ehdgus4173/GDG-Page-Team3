@@ -1,7 +1,6 @@
 package com.example.backend.auth.controller;
 
 import com.example.backend.auth.dto.SignUpConfirmRequest;
-import com.example.backend.auth.dto.SignUpRequest;
 import com.example.backend.auth.docs.SignUpExceptionDocs;
 import com.example.backend.auth.service.SignUpService;
 import com.example.backend.global.annotation.ApiErrorExceptionsExample;
@@ -26,19 +25,6 @@ import java.util.Map;
 public class SignUpController {
 
 	private final SignUpService signUpService;
-
-	@PostMapping("/signup")
-	@Operation(summary = "회원가입", description = "회원가입을 진행하고 이메일 인증 링크를 발송합니다.")
-	@ApiErrorExceptionsExample(SignUpExceptionDocs.class)
-	public ResponseEntity<ApiResponse<Map<String, String>>> signUp(
-		@Valid @RequestBody SignUpRequest request
-	) {
-		String message = signUpService.signUp(request);
-		Map<String, String> data = Map.of("message", message);
-		return ResponseEntity
-			.status(HttpStatus.CREATED)
-			.body(ApiResponse.success(data));
-	}
 
 	@PostMapping("/signup/confirm")
 	@Operation(summary = "이메일 인증 완료", description = "Firebase ID 토큰을 검증하고 이메일 인증이 완료된 사용자를 DB에 저장합니다.")
