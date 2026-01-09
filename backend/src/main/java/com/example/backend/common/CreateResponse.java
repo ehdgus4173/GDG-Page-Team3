@@ -1,4 +1,4 @@
-package com.example.backend.global.dto;
+package com.example.backend.common;
 
 public record CreateResponse(
         Long id,

@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 
 import java.util.HashMap;
+
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -37,8 +39,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             Object body,
             HttpHeaders headers,
             HttpStatusCode status,
-            WebRequest request
-    ) {
+            WebRequest request) {
 
         String url = "";
         if (request instanceof ServletWebRequest servletWebRequest) {
@@ -47,13 +48,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         HttpStatus httpStatus = HttpStatus.valueOf(status.value());
 
-        ErrorResponse errorResponse =
-                new ErrorResponse(
-                        httpStatus.value(),
-                        httpStatus.getReasonPhrase(),
-                        ex.getMessage(),
-                        url
-                );
+        ErrorResponse errorResponse = new ErrorResponse(
+                httpStatus.value(),
+                httpStatus.getReasonPhrase(),
+                ex.getMessage(),
+                url);
 
         return new ResponseEntity<>(errorResponse, headers, httpStatus);
     }
@@ -66,33 +65,67 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             MethodArgumentNotValidException ex,
             HttpHeaders headers,
             HttpStatusCode status,
-            WebRequest request
-    ) {
+            WebRequest request) {
 
-        Map<String, String> fieldErrors =
-                ex.getBindingResult()
-                        .getFieldErrors()
-                        .stream()
-                        .collect(
-                                Collectors.toMap(
-                                        FieldError::getField,
-                                        FieldError::getDefaultMessage,
-                                        (a, b) -> a
-                                )
-                        );
+        Map<String, String> fieldErrors = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .collect(
+                        Collectors.toMap(
+                                FieldError::getField,
+                                FieldError::getDefaultMessage,
+                                (a, b) -> a));
 
         String url = "";
         if (request instanceof ServletWebRequest servletWebRequest) {
             url = servletWebRequest.getRequest().getRequestURL().toString();
         }
 
-        ErrorResponse errorResponse =
-                new ErrorResponse(
-                        HttpStatus.BAD_REQUEST.value(),
-                        HttpStatus.BAD_REQUEST.getReasonPhrase(),
-                        fieldErrors.toString(),
-                        url
-                );
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                fieldErrors.toString(),
+                url);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    /**
+     * JSON 파싱 실패 (Enum 타입 불일치 등)
+     */
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(
+            HttpMessageNotReadableException ex,
+            HttpHeaders headers,
+            HttpStatusCode status,
+            WebRequest request) {
+        String url = "";
+        if (request instanceof ServletWebRequest servletWebRequest) {
+            url = servletWebRequest.getRequest().getRequestURL().toString();
+        }
+
+        // Enum 형식이 잘못된 경우 (InvalidFormatException)
+        if (ex.getCause() instanceof com.fasterxml.jackson.databind.exc.InvalidFormatException) {
+            if (url.contains("/api/news")) {
+                BaseErrorCode errorCode = com.example.backend.news.exception.NewsErrorCode.INVALID_FILE_TYPE;
+                ErrorReason errorReason = errorCode.getErrorReason();
+                ErrorResponse errorResponse = new ErrorResponse(errorReason, url);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+            }
+            if (url.contains("/api/notices")) {
+                BaseErrorCode errorCode = com.example.backend.notice.exception.NoticeErrorCode.INVALID_FILE_TYPE;
+                ErrorReason errorReason = errorCode.getErrorReason();
+                ErrorResponse errorResponse = new ErrorResponse(errorReason, url);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+            }
+        }
+
+        // 그 외 일반적인 JSON 파싱 에러
+        ErrorResponse errorResponse = new ErrorResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                "JSON 형식 또는 데이터 타입이 올바르지 않습니다.",
+                url);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
@@ -103,29 +136,26 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorResponse> handleConstraintViolation(
             ConstraintViolationException ex,
-            HttpServletRequest request
-    ) {
+            HttpServletRequest request) {
 
         Map<String, String> errors = new HashMap<>();
 
         ex.getConstraintViolations().forEach(violation -> {
-            String field =
-                    violation.getPropertyPath().toString().contains(".")
-                            ? violation.getPropertyPath().toString()
-                            .substring(violation.getPropertyPath().toString().lastIndexOf('.') + 1)
-                            : violation.getPropertyPath().toString();
+            String field = violation.getPropertyPath().toString().contains(".")
+                    ? violation.getPropertyPath().toString()
+                    .substring(violation.getPropertyPath().toString()
+                            .lastIndexOf('.') + 1)
+                    : violation.getPropertyPath().toString();
             errors.put(field, violation.getMessage());
         });
 
-        ErrorReason errorReason =
-                ErrorReason.builder()
-                        .status(HttpStatus.BAD_REQUEST.value())
-                        .code("BAD_REQUEST")
-                        .reason(errors.toString())
-                        .build();
+        ErrorReason errorReason = ErrorReason.builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .code("BAD_REQUEST")
+                .reason(errors.toString())
+                .build();
 
-        ErrorResponse errorResponse =
-                new ErrorResponse(errorReason, request.getRequestURL().toString());
+        ErrorResponse errorResponse = new ErrorResponse(errorReason, request.getRequestURL().toString());
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
@@ -138,14 +168,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(GlobalCodeException.class)
     public ResponseEntity<ErrorResponse> handleGlobalCodeException(
             GlobalCodeException ex,
-            HttpServletRequest request
-    ) {
+            HttpServletRequest request) {
 
         BaseErrorCode errorCode = ex.getErrorCode();
         ErrorReason errorReason = errorCode.getErrorReason();
 
-        ErrorResponse errorResponse =
-                new ErrorResponse(errorReason, request.getRequestURL().toString());
+        ErrorResponse errorResponse = new ErrorResponse(errorReason, request.getRequestURL().toString());
 
         return ResponseEntity
                 .status(HttpStatus.valueOf(errorReason.getStatus()))
@@ -206,16 +234,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(GlobalDynamicException.class)
     public ResponseEntity<ErrorResponse> handleGlobalDynamicException(
             GlobalDynamicException ex,
-            HttpServletRequest request
-    ) {
+            HttpServletRequest request) {
 
-        ErrorResponse errorResponse =
-                new ErrorResponse(
-                        ex.getStatus(),
-                        ex.getCode(),
-                        ex.getReason(),
-                        request.getRequestURL().toString()
-                );
+        ErrorResponse errorResponse = new ErrorResponse(
+                ex.getStatus(),
+                ex.getCode(),
+                ex.getReason(),
+                request.getRequestURL().toString());
 
         return ResponseEntity
                 .status(HttpStatus.valueOf(ex.getStatus()))
@@ -228,20 +253,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleAllException(
             Exception ex,
-            HttpServletRequest request
-    ) {
+            HttpServletRequest request) {
 
         log.error("INTERNAL_SERVER_ERROR", ex);
 
         GlobalErrorCode internalServerError = GlobalErrorCode.INTERNAL_SERVER_ERROR;
 
-        ErrorResponse errorResponse =
-                new ErrorResponse(
-                        internalServerError.getStatus(),
-                        internalServerError.getCode(),
-                        internalServerError.getReason(),
-                        request.getRequestURL().toString()
-                );
+        ErrorResponse errorResponse = new ErrorResponse(
+                internalServerError.getStatus(),
+                internalServerError.getCode(),
+                internalServerError.getReason(),
+                request.getRequestURL().toString());
 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)

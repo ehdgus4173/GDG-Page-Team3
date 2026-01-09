@@ -1,10 +1,11 @@
 package com.example.backend.notice.controller;
 
-import com.example.backend.global.dto.CreateResponse;
-import com.example.backend.notice.dto.CreateNoticeRequest;
-import com.example.backend.notice.dto.NoticeDetailResponse;
-import com.example.backend.notice.dto.NoticeSummaryResponse;
+import com.example.backend.common.CreateResponse;
+import com.example.backend.global.annotation.ApiErrorExceptionsExample;
+import com.example.backend.notice.document.*;
+import com.example.backend.notice.dto.*;
 import com.example.backend.notice.service.NoticeService;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -21,21 +22,21 @@ public class NoticeController {
     private final NoticeService noticeService;
 
     @GetMapping
+    @ApiErrorExceptionsExample(NoticeGetListExceptionDocs.class)
     public ResponseEntity<List<NoticeSummaryResponse>> getNoticeList() {
-        // TODO
         return ResponseEntity.ok(noticeService.getNoticeList());
     }
 
     @GetMapping("/{id}")
+    @ApiErrorExceptionsExample(NoticeGetDetailExceptionDocs.class)
     public ResponseEntity<NoticeDetailResponse> getNotice(@PathVariable Long id) {
-        // TODO
         return ResponseEntity.ok(noticeService.getNotice(id));
     }
 
     @Valid
     @PostMapping
+    @ApiErrorExceptionsExample(NoticeCreateExceptionDocs.class)
     public ResponseEntity<CreateResponse> createNotice(@RequestBody CreateNoticeRequest request) {
-        // TODO
         Long id = noticeService.createNotice(request);
         return ResponseEntity.status(201).body(new CreateResponse(id, true));
     }
