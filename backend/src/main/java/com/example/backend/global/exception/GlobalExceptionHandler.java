@@ -1,5 +1,8 @@
 package com.example.backend.global.exception;
 
+import com.example.backend.auth.exception.PasswordResetException;
+import com.example.backend.auth.exception.SignInException;
+import com.example.backend.auth.exception.SignUpException;
 import com.example.backend.global.dto.ErrorReason;
 import com.example.backend.global.dto.ErrorResponse;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +21,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -147,6 +149,54 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.valueOf(errorReason.getStatus()))
+                .body(errorResponse);
+    }
+
+    /**
+     * 회원가입 관련 예외
+     */
+    @ExceptionHandler(SignUpException.class)
+    public ResponseEntity<ErrorResponse> handleSignUpException(
+            SignUpException ex,
+            HttpServletRequest request
+    ) {
+        ErrorReason reason = ex.getErrorReason();
+        ErrorResponse errorResponse =
+                new ErrorResponse(reason, request.getRequestURL().toString());
+
+        return ResponseEntity.status(HttpStatus.valueOf(reason.getStatus()))
+                .body(errorResponse);
+    }
+
+    /**
+     * 로그인 관련 예외
+     */
+    @ExceptionHandler(SignInException.class)
+    public ResponseEntity<ErrorResponse> handleSignInException(
+            SignInException ex,
+            HttpServletRequest request
+    ) {
+        ErrorReason reason = ex.getErrorReason();
+        ErrorResponse errorResponse =
+                new ErrorResponse(reason, request.getRequestURL().toString());
+
+        return ResponseEntity.status(HttpStatus.valueOf(reason.getStatus()))
+                .body(errorResponse);
+    }
+
+    /**
+     * 비밀번호 재설정 관련 예외
+     */
+    @ExceptionHandler(PasswordResetException.class)
+    public ResponseEntity<ErrorResponse> handlePasswordResetException(
+            PasswordResetException ex,
+            HttpServletRequest request
+    ) {
+        ErrorReason reason = ex.getErrorReason();
+        ErrorResponse errorResponse =
+                new ErrorResponse(reason, request.getRequestURL().toString());
+
+        return ResponseEntity.status(HttpStatus.valueOf(reason.getStatus()))
                 .body(errorResponse);
     }
 

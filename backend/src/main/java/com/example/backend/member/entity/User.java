@@ -64,4 +64,8 @@ public class User {
     public void verifyEmail() {
         this.emailVerified = true;
     }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
 }

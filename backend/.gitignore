@@ -42,3 +42,5 @@ out/
 # spring config
 application.yml
 application-*.yml
+
+gdg-team3-firebase-adminsdk-fbsvc-56fc83e392.json
