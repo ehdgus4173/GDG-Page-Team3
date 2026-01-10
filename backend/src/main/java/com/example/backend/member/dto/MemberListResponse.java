@@ -1,10 +1,14 @@
 package com.example.backend.member.dto;
 
+import com.example.backend.member.enums.MemberRole;
+import com.example.backend.member.enums.SnsType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -15,9 +19,18 @@ public class MemberListResponse {
 
     private String name;
 
-    private int generation;
+    private MemberRole role;
 
     private String part;
 
+    private String department;
+
+    private String bio;
+
+    private int generation;
+
     private String imageUrl;
+
+    private List<String> techStacks;
+
 }

@@ -72,4 +72,12 @@ public class User {
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updatePart(String part) {
+        this.part = part;
+    }
 }

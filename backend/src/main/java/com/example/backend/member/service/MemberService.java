@@ -23,10 +23,7 @@ public class MemberService {
      * 6.1 멤버 목록 조회
      * - 기수(generation), 파트(part) 필터링
      */
-    public List<MemberListResponse> getMemberList(
-            Integer generation,
-            String part
-    ) {
+    public List<MemberListResponse> getMemberList(Integer generation, String part) {
         List<User> users;
 
         if (generation != null && part != null) {
@@ -44,13 +41,21 @@ public class MemberService {
         }
 
         return users.stream()
-                .map(user -> new MemberListResponse(
-                        user.getId(),
-                        user.getName(),
-                        user.getGeneration(),
-                        user.getPart(),
-                        null   // imageUrl은 Profile
-                ))
+                .map(user -> {
+                    // Profile 정보 가져오기 (null 체크)
+                    var profile = user.getProfile();
+                    return new MemberListResponse(
+                            user.getId(),
+                            user.getName(),
+                            user.getRole(),
+                            user.getPart(),
+                            user.getDepartment(),
+                            profile != null ? profile.getBio() : null,
+                            user.getGeneration(),
+                            profile != null ? profile.getProfileImageUrl() : null,
+                            profile != null ? profile.getTechStacks() : null
+                    );
+                })
                 .toList();
     }
 
@@ -58,20 +63,22 @@ public class MemberService {
      * 6.2 멤버 상세 조회
      */
     public MemberDetailResponse getMemberDetail(Long memberId) {
-
         User user = userRepository.findById(memberId)
-                .orElseThrow(() ->
-                        new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
+                .orElseThrow(() -> new MemberException(MemberErrorCode.MEMBER_NOT_FOUND));
+
+        var profile = user.getProfile();
 
         return new MemberDetailResponse(
                 user.getId(),
                 user.getName(),
+                user.getRole(),
                 user.getGeneration(),
                 user.getPart(),
-                null,   // imageUrl
-                null,   // introduction
-                null,   // techStacks
-                null    // snsLinks
+                profile != null ? profile.getProfileImageUrl() : null,
+                profile != null ? profile.getBio() : null,
+                profile != null ? profile.getTechStacks() : null,
+                profile != null ? profile.getSnsLinks() : null
         );
     }
 }
+
