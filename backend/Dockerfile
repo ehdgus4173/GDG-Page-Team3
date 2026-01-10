@@ -24,4 +24,5 @@ COPY --from=build /app/build/libs/*.jar app.jar
 ENV PORT=8080
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Render 등 클라우드 환경의 PORT 변수 대응
+ENTRYPOINT ["sh", "-c", "java -Dserver.port=${PORT:-8080} -jar app.jar"]
