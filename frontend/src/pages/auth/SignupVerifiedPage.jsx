@@ -175,6 +175,7 @@ const SignupVerifiedPage = () => {
               <div className="form-group">
                 <label className="form-label">가입 정보 확인</label>
                 <div className="helper-text" style={{ lineHeight: 1.6 }}>
+                  {savedForm.name} / {savedForm.grade}기 / {savedForm.position} / {savedForm.part}
                   <br />
                   학번: {savedForm.stdId} / 학과: {savedForm.department}
                 </div>
