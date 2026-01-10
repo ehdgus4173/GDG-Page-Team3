@@ -10,13 +10,16 @@ function Layout() {
     pathname.startsWith("/signup") ||
     pathname.startsWith("/find-password");
 
+  // ✅ 메인 페이지만 container 없이 전체폭
+  const isMainPage = pathname === "/";
+
   return (
     <div className="layout">
       <Header />
 
       <main className="layout-content">
-        {isAuthPage ? (
-          <Outlet />  
+        {isAuthPage || isMainPage ? (
+          <Outlet />
         ) : (
           <div className="container">
             <Outlet />

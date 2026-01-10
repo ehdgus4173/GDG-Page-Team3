@@ -4,27 +4,60 @@
   overflow-x: hidden;
   font-family: 'Spoqa Han Sans Neo', sans-serif;
 }
+.hero {
+  width: 100%;
+}
+
+/* ✅ 스냅 스크롤 루트 */
+.snap-root{
+  height: calc(100vh - 0px);
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+/* ✅ 섹션을 스냅 단위로 */
+.snap-section{
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  position: relative;
+
+  /* 등장 애니메이션 기본값 */
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 520ms ease, transform 520ms ease;
+}
+
+.snap-section.in{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 사용자가 모션 줄이기 설정한 경우 */
+@media (prefers-reduced-motion: reduce){
+  .snap-root{ scroll-behavior: auto; }
+  .snap-section{ transition: none; opacity: 1; transform: none; }
+}
 
 /* ================= HERO ================= */
 .hero {
-  height: 700px;
-  background: linear-gradient(        
+  height: 100vh;
+  background: linear-gradient(
     180deg,
-    #d2e1fa 0%,     /* ⬅ 여기만 살짝 더 진하게 */
+    #d2e1fa 0%,
     #eaf1fb 65%,
     #ffffff 100%
   );
-  position: relative;
   overflow: hidden;
 }
 
-/* 이미지 */
 .hero-visual {
   position: absolute;
-  top: 250px;
+  top: 30vh;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 3;   /* 🔥 제일 크게 */
+  z-index: 3;
 }
 
 .image-2-icon {
@@ -35,16 +68,15 @@
   pointer-events: none;
 }
 
-/* 제목 */
 .google-developer-groups {
   position: absolute;
-  top: 10px;   /* 🔼 40px 위로 */
+  top: 6vh;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
 
   width: 1189px;
-  max-width: 90vw;
+  max-width: 92vw;
 
   font-size: 96px;
   font-weight: 800;
@@ -62,21 +94,26 @@
   -webkit-text-fill-color: transparent;
 }
 
-/* 설명 */
 .hero-desc {
   position: absolute;
-  top: 560px;
+  top: 78vh;
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
 
   max-width: 720px;
-  font-size: 16px;
-  color: #555;
-  line-height: 1.6;
+  color: var(--gray-11);
   text-align: center;
 }
 
+.scroll-hint{
+  position:absolute;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  color: var(--gray-10);
+  opacity:0.8;
+}
 
 /* ================= WHAT ================= */
 .what {
@@ -86,107 +123,51 @@
   text-align: center;
 }
 
-.what h2 {
-  font-size: 36px;
-  font-weight: 700;
-}
-
 .what-list {
-  position: relative;   /* 기준점 */
-  height: 600px;        /* 충분히 크게 */
+  position: relative;
+  height: 600px;
+  margin-top: 40px;
 }
-
 
 .text-box {
-  font-size: 20px;
   line-height: 1.9;
-  max-width: 420px;
-  letter-spacing: -0.2px;
-  margin-top: 120px;  
+  max-width: 520px;
+  letter-spacing: -0.6px;
+  margin-top: 120px;
 }
 
-.text-box.left {
-  text-align: left;
-  margin-left: 120px;
-}
+.text-box.left { text-align: left; margin-left: 120px; }
+.text-box.right { text-align: right; margin-right: 120px; margin-left: auto; }
 
-.text-box.right {
-  text-align: right;
-  margin-right: 120px;
-  margin-left: auto;
-}
-
-/* 알약 */
 .pill {
   position: absolute;
   width: 56px;
   height: 170px;
   border-radius: 999px;
-
   transform: rotate(55deg);
   opacity: 0.9;
-
-  box-shadow:
-    0 12px 30px rgba(0,0,0,0.18);
-
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
   filter: saturate(1.05);
 }
 
-.cell-1 {
-  top: 0;
-  left: 0;
-}
+.cell-1 { top: 0; left: 0; }
+.cell-2 { top: 0; right: 0; }
+.cell-3 { top: 350px; left: 0; }
+.cell-4 { top: 350px; right: 0; }
 
-.cell-2 {
-  top: 0;
-  right: 0;
-}
-
-.cell-3 {
-  top: 350px;   /* ← 기존 200px → 320px */
-  left: 0;
-}
-
-.cell-4 {
-  top: 350px;   /* ← 동일하게 */
-  right: 0;
-}
-
-.pill.red {
-  background: #ea4335;
-  top: -90px;
-  left: 40px;
-}
-
-.pill.blue {
-  background: #4285f4;
-  top: 190px;
-  right: 40px;
-}
-
-.pill.yellow {
-  background: #fbbc04;
-  bottom: 130px;
-  left: 40px;
-}
-
-.pill.green {
-  background: #0f9d58;
-  bottom: -140px;
-  right: 40px;
-}
+.pill.red { background: var(--red); top: -90px; left: 40px; }
+.pill.blue { background: var(--blue); top: 190px; right: 40px; }
+.pill.yellow { background: var(--yellow); bottom: 130px; left: 40px; }
+.pill.green { background: var(--green); bottom: -140px; right: 40px; }
 
 /* ================= REVIEW ================= */
 .review {
   padding: 120px 24px;
-  background: #ecf3fe;
+  background: var(--blue-50);
   text-align: center;
 }
 
-.review h2 {
-  font-size: 36px;
-  margin-bottom: 80px;
-}
+.review h2 { margin-bottom: 80px; }
 
 .review-grid {
   display: flex;
@@ -198,22 +179,14 @@
 .review-card {
   width: 420px;
   padding: 40px;
-  background: #fff;
+  background: var(--white);
   border-radius: 24px;
   text-align: left;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
 }
 
-.review-card b {
-  display: block;
-  margin-bottom: 16px;
-}
-
-.review-card span {
-  display: block;
-  margin-top: 16px;
-  font-size: 14px;
-  color: #666;
-}
+.review-card b { display: block; margin-bottom: 16px; }
+.review-card span { display: block; margin-top: 16px; color: var(--gray-10); }
 
 /* ================= ACTIVITY ================= */
 .activity {
@@ -221,10 +194,7 @@
   text-align: center;
 }
 
-.activity-title {
-  font-size: 28px;
-  margin-bottom: 80px;
-}
+.activity-title { margin-bottom: 80px; }
 
 .activity-grid {
   display: flex;
@@ -235,8 +205,8 @@
 
 .activity-card {
   width: 360px;
-  background: #171717;
-  color: #fff;
+  background: var(--gray-15);
+  color: var(--white);
   padding: 40px;
   border-radius: 24px;
   text-align: left;
@@ -245,16 +215,12 @@
 /* ================= MORE ================= */
 .more {
   padding: 160px 24px;
-  background: #171717;
-  color: #fff;
+  background: var(--gray-15);
+  color: var(--white);
   text-align: center;
 }
 
-.more-title {
-  font-size: 32px;
-  font-weight: 700;
-  margin-bottom: 80px;
-}
+.more-title { margin-bottom: 80px; }
 
 .more-cards {
   display: flex;
@@ -263,13 +229,12 @@
   gap: 80px;
 }
 
-/* Instagram 원 */
 .more-circle {
   width: 360px;
   height: 360px;
   border-radius: 50%;
-  background: #ea4335;
-  color: #fff;
+  background: var(--red);
+  color: var(--white);
   text-decoration: none;
 
   display: flex;
@@ -278,45 +243,30 @@
   align-items: center;
   gap: 24px;
 
-  font-size: 24px;
-  font-weight: 600;
-
   box-shadow: 0 20px 50px rgba(0,0,0,0.4);
   transition: transform 0.25s ease;
 }
 
-.more-circle:hover {
-  transform: scale(1.06);
-}
+.more-circle:hover { transform: scale(1.06); }
 
-/* Recruit 기울어진 카드 */
 .more-tilt {
   width: 420px;
   height: 320px;
   border-radius: 32px;
-  background: #777;
+  background: var(--gray-09);
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
-  font-size: 24px;
-  font-weight: 600;
-  color: #fff;
+  color: var(--white);
   text-decoration: none;
 
-  /* ✅ 절대 회전 없음 */
   transform: none;
-
   transition: transform 0.25s ease;
 }
 
-.more-tilt:hover {
-  transform: scale(1.05);
-}
+.more-tilt:hover { transform: scale(1.05); }
 
-
-.main-page .arrow {
-  font-size: 32px;
-}
+.main-page .arrow { font-size: 32px; }
