@@ -6,7 +6,8 @@ import MainPage from "./pages/main/MainPage";
 import NoticePage from "./pages/notice/NoticePage";
 import NewsPage from "./pages/news/NewsPage";
 import MembersPage from "./pages/members/MembersPage";
-import MyPage from "./pages/mypage/Mypage";
+import MyPage from "./pages/mypage/MyPage";
+import MyPageEdit from "./pages/mypage/MyPageEdit";
 import NoticeDetailPage from "./pages/notice/NoticeDetailPage";
 import NewsDetailPage from "./pages/news/NewsDetailPage";
 import NoticeWritePage from "./pages/notice/NoticeWritePage";
@@ -33,6 +34,7 @@ function App() {
           <Route path="/news/:id" element={<NewsDetailPage />} />
           <Route path="/members" element={<MembersPage />} />
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypage/edit" element={<MyPageEdit />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/find-password" element={<FindPasswordPage />} />
           <Route path="/auth/action" element={<PasswordResetActionPage />} />

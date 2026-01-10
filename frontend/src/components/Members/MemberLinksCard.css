@@ -1,0 +1,69 @@
+.member-links-card {
+    width: 420px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    padding: 18px;
+  }
+  
+  .member-links-header h3 {
+    margin: 0 0 12px 0;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  
+  .member-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .member-link-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 14px;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    text-decoration: none;
+    color: inherit;
+    background: #fff;
+  }
+  
+  .member-link-item:hover {
+    background: #fafafa;
+  }
+  
+  .member-link-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .member-link-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    background: #f3f4f6;
+    display: grid;
+    place-items: center;
+    font-size: 14px;
+  }
+  
+  .member-link-label {
+    font-size: 14px;
+    font-weight: 600;
+  }
+  
+  .member-link-arrow {
+    font-size: 16px;
+    font-weight: 800;
+  }
+  
+  .member-links-empty {
+    margin: 6px 0 0 0;
+    color: #888;
+    font-size: 13px;
+  }
+  
