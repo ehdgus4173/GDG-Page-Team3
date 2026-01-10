@@ -1,29 +1,23 @@
 import { useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../lib/firebase";
-
+import { Link, useLocation } from "react-router-dom";
 import Navbar from "../Navbar/Navbar";
+import GDGLogo from "../Logo/GDGLogo";
 import "../../styles/layout.css";
 import "./Header.css";
-import GDGLogo from "../Logo/GDGLogo";
 
 function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (user) => {
-      // 이메일 인증까지 끝난 사용자만 로그인으로 치고 싶으면 user?.emailVerified도 체크
-      setIsLoggedIn(!!user && user.emailVerified);
-      // 인증 상관없이 Firebase 로그인만 되면 true로 하려면:
-      // setIsLoggedIn(!!user);
-    });
-
-    return () => unsub();
-  }, []);
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+    setIsLoggedIn(loggedIn);
+  }, [location.pathname]);
 
   return (
     <header className="header">
       <div className="container header-inner">
+        {/* 좌 */}
         <div className="header-left">
           <GDGLogo size={28} />
           <span className="logo-text">
@@ -33,17 +27,19 @@ function Header() {
           </span>
         </div>
 
+        {/* 중 */}
         <div className="header-center">
           <Navbar />
         </div>
 
+        {/* 우 */}
         <div className="header-right">
           {isLoggedIn ? (
-            <a href="/mypage">마이페이지</a>
+            <Link to="/mypage">마이페이지</Link>
           ) : (
             <>
-              <a href="/login">로그인</a>
-              <a href="/signup">회원가입</a>
+              <Link to="/login">로그인</Link>
+              <Link to="/signup">회원가입</Link>
             </>
           )}
         </div>

@@ -272,9 +272,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<ErrorResponse> handleException(Exception ex, HttpServletRequest request)
             throws IOException {
-        ServletWebRequest servletWebRequest = (ServletWebRequest) request;
-        HttpServletRequest httpServletRequest = servletWebRequest.getRequest(); // 예외가 발생한 URL과 같은 요청에 대한 세부 정보를 추출
-        String url = httpServletRequest.getRequestURL().toString();
+        String url = request.getRequestURL().toString();
 
         log.error("INTERNAL_SERVER_ERROR", ex);
         GlobalErrorCode internalServerError = GlobalErrorCode.INTERNAL_SERVER_ERROR;

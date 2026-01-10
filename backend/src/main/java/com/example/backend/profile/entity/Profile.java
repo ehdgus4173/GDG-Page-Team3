@@ -22,30 +22,22 @@ public class Profile {
     @Column(columnDefinition = "TEXT")
     private String bio;
 
-    private String department;
-
-    private String studentId;
-
     private String profileImageUrl;
 
     public Profile(User user) {
-        this.user = user;
-        this.userId = user.getId();
+        setUser(user);
     }
 
     public void updateBio(String bio) {
         this.bio = bio;
     }
 
-    public void updateDepartment(String department) {
-        this.department = department;
-    }
-
-    public void updateStudentId(String studentId) {
-        this.studentId = studentId;
-    }
-
     public void updateProfileImage(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+        this.userId = user != null ? user.getId() : null;
     }
 }

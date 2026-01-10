@@ -1,27 +1,55 @@
 // src/utils/memberMapper.js
 
 export function snsLinksToArray(snsLinks) {
-    if (!snsLinks || typeof snsLinks !== "object") return [];
-  
+  if (!snsLinks) return [];
+
+  // 백엔드가 리스트 [{type, url}] 형태를 주는 경우 (현재 구조)
+  if (Array.isArray(snsLinks)) {
+    return snsLinks
+      .filter((item) => item && typeof item === "object" && item.url)
+      .map((item) => ({
+        label: typeLabel(item.type),
+        url: item.url,
+      }));
+  }
+
+  // 혹시 과거 버전: { github: "...", blog: "..." } 형태 대응
+  if (typeof snsLinks === "object") {
     return Object.entries(snsLinks)
-      .filter(([key, url]) => url && url !== "string")
+      .filter(([_, url]) => url && url !== "string")
       .map(([key, url]) => ({
         label: keyLabel(key),
         url,
       }));
   }
-  
-  function keyLabel(key) {
-    const map = {
-      github: "Github",
-      blog: "Blog",
-      linkedin: "LinkedIn",
-      instagram: "Instagram",
-      behance: "Behance",
-      etc: "Etc",
-    };
-    return map[key] || key;
-  }
+
+  return [];
+}
+
+function typeLabel(type) {
+  const key = `${type ?? ""}`.toLowerCase();
+  const map = {
+    github: "Github",
+    blog: "Blog",
+    linkedin: "LinkedIn",
+    instagram: "Instagram",
+    behance: "Behance",
+    etc: "Etc",
+  };
+  return map[key] || type || "Link";
+}
+
+function keyLabel(key) {
+  const map = {
+    github: "Github",
+    blog: "Blog",
+    linkedin: "LinkedIn",
+    instagram: "Instagram",
+    behance: "Behance",
+    etc: "Etc",
+  };
+  return map[key] || key;
+}
   
   // 멤버 "목록" 아이템용 (목록 응답이 뭐가 오든 일단 안전하게)
   export function mapMemberListItemToCard(m) {

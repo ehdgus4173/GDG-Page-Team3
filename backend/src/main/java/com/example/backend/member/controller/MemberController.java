@@ -33,7 +33,8 @@ public class MemberController {
         List<MemberListResponse> members =
                 memberService.getMemberList(
                         request.getGeneration(),
-                        request.getPart()
+                        request.getPart(),
+                        request.getPage()
                 );
 
         return ResponseEntity.ok(members);

@@ -40,6 +40,8 @@ public class SecurityConfig {
                         .permitAll()
                         // Auth API 경로 (모두 허용)
                         .requestMatchers("/api/auth/**").permitAll()
+                        // 프로필 관련은 인증 필요
+                        .requestMatchers("/api/profile/**").authenticated()
                         // 그 외 모든 요청 허용 (추후 인증 필요한 경로는 여기서 제외)
                         .anyRequest().permitAll())
                 .formLogin(form -> form.disable())

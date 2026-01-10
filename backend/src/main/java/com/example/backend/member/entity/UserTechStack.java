@@ -17,12 +17,11 @@ public class UserTechStack {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tech_stack_id", nullable = false)
-    private TechStack techStack;
+    @Column(name = "stack_name", nullable = false, length = 100)
+    private String stackName;
 
-    public UserTechStack(User user, TechStack techStack) {
+    public UserTechStack(User user, String stackName) {
         this.user = user;
-        this.techStack = techStack;
+        this.stackName = stackName;
     }
 }

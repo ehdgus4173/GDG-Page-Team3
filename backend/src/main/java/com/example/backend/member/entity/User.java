@@ -61,6 +61,10 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Profile profile;
 
+    public void setProfile(Profile profile) {
+        this.profile = profile;
+    }
+
     /* ===============================
        Domain Methods
        =============================== */
@@ -79,5 +83,21 @@ public class User {
 
     public void updatePart(String part) {
         this.part = part;
+    }
+
+    public void updateDepartment(String department) {
+        this.department = department;
+    }
+
+    public void updateStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public void updateGeneration(int generation) {
+        this.generation = generation;
+    }
+
+    public void updateRole(MemberRole role) {
+        this.role = role;
     }
 }

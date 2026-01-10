@@ -1,11 +1,7 @@
 package com.example.backend.member.dto;
 
-import com.example.backend.common.SnsLinks;
 import com.example.backend.member.enums.MemberRole;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,21 +13,36 @@ import java.util.List;
 @AllArgsConstructor
 public class MemberDetailResponse {
 
+    @Schema(description = "프로필 ID", example = "10")
     private Long profileId;
 
+    @Schema(description = "이름", example = "홍길동")
     private String name;
 
+    @Schema(description = "역할", example = "CORE")
     private MemberRole role;
 
+    @Schema(description = "기수", example = "4")
     private int generation;
 
+    @Schema(description = "파트", example = "AI")
     private String part;
 
+    @Schema(description = "학번", example = "20240001")
+    private String studentId;
+
+    @Schema(description = "학과", example = "컴퓨터공학과")
+    private String department;
+
+    @Schema(description = "프로필 이미지 URL", example = "https://example.com/image.jpg")
     private String imageUrl;
 
+    @Schema(description = "한 줄 소개", example = "4기 AI 코어 홍길동입니다.")
     private String bio;
 
+    @Schema(description = "기술 스택 목록", example = "[\"Python\", \"PyTorch\", \"React\"]")
     private List<String> techStacks;
 
-    private SnsLinks snsLinks;
+    @Schema(description = "SNS 링크 목록")
+    private List<MemberSnsLinkResponse> snsLinks;
 }
