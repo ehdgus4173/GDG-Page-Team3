@@ -54,6 +54,7 @@ const LoginPage = () => {
 
       // 3) ID 토큰 획득 후 백엔드 로그인 검증
       const idToken = await user.getIdToken(true);
+      console.log("[login] firebase idToken:", idToken);
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
