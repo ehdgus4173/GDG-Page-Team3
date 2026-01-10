@@ -38,7 +38,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
     // Firebase Admin
-    implementation 'com.google.firebase:firebase-admin:9.4.0'
+    implementation('com.google.firebase:firebase-admin:9.4.0') {
+        exclude group: 'org.mock-server', module: 'mockserver-junit-rule-no-dependencies' // 배포 시 충돌 해결
+    }
 
     // Swagger (Spring Boot 3.x 호환)
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
