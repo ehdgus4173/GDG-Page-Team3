@@ -8,7 +8,6 @@ import lombok.Getter;
 
 import static com.example.backend.global.consts.EasyStatic.*;
 
-
 @Getter
 @AllArgsConstructor
 public enum NoticeErrorCode implements BaseErrorCode {
@@ -34,9 +33,9 @@ public enum NoticeErrorCode implements BaseErrorCode {
     @ExplainError("제목 길이가 허용 최대치를 초과한 경우 발생합니다. (200자)")
     TITLE_TOO_LONG(BAD_REQUEST, "NOTICE_400_6", "제목 길이가 허용 범위를 초과했습니다."),
 
-//    본문 최대 길이 지정..? (뉴스도)
-//    @ExplainError("본문 길이가 허용 최대치를 초과한 경우 발생합니다.")
-//    CONTENT_TOO_LONG(BAD_REQUEST, "NOTICE_400_7", "내용 길이가 허용 범위를 초과했습니다."),
+    // 본문 최대 길이 지정..? (뉴스도)
+    // @ExplainError("본문 길이가 허용 최대치를 초과한 경우 발생합니다.")
+    // CONTENT_TOO_LONG(BAD_REQUEST, "NOTICE_400_7", "내용 길이가 허용 범위를 초과했습니다."),
 
     @ExplainError("작성자 식별자(authorId)가 누락되었거나 유효하지 않은 경우 발생합니다.")
     AUTHOR_ID_INVALID(BAD_REQUEST, "NOTICE_400_8", "작성자 정보가 올바르지 않습니다."),
@@ -54,8 +53,10 @@ public enum NoticeErrorCode implements BaseErrorCode {
     INVALID_FILE_TYPE(BAD_REQUEST, "NOTICE_400_12", "첨부 파일 타입이 올바르지 않습니다."),
 
     @ExplainError("동일 조건에서 중복 생성 등 도메인 무결성 정책에 위배되는 경우 발생합니다.")
-    NOTICE_CONFLICT(CONFLICT, "NOTICE_409_1", "공지 생성 요청이 충돌했습니다.");
+    NOTICE_CONFLICT(CONFLICT, "NOTICE_409_1", "공지 생성 요청이 충돌했습니다."),
 
+    @ExplainError("공지 작성 권한이 없는 사용자가 요청한 경우 발생합니다. (MEMBER 등급 불가)")
+    UNAUTHORIZED_ROLE(FORBIDDEN, "NOTICE_403_1", "공지 작성 권한이 없습니다.");
 
     private final Integer status;
     private final String code;

@@ -26,4 +26,13 @@ public class UserContextImpl implements UserContext {
         }
         return 0; // Default or throw
     }
+
+    @Override
+    public com.example.backend.member.enums.MemberRole currentRole() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof CustomUserDetails) {
+            return ((CustomUserDetails) authentication.getPrincipal()).getRole();
+        }
+        return null;
+    }
 }

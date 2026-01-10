@@ -66,6 +66,12 @@ public class NoticeService {
             throw new NoticeException(NoticeErrorCode.AUTHOR_ID_INVALID);
         }
 
+        // 권한 체크: MEMBER 등급은 공지 작성 불가능
+        com.example.backend.member.enums.MemberRole role = userContext.currentRole();
+        if (role == com.example.backend.member.enums.MemberRole.MEMBER) {
+            throw new NoticeException(NoticeErrorCode.UNAUTHORIZED_ROLE);
+        }
+
         if (request.title() == null || request.title().isBlank()) {
             throw new NoticeException(NoticeErrorCode.TITLE_REQUIRED);
         }
