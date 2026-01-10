@@ -10,13 +10,15 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class TechStack {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true, length = 100)
     private String name;
 
-    @Column(name = "icon_url")
-    private String iconUrl;
+    public TechStack(String name) {
+        this.name = name;
+    }
 }

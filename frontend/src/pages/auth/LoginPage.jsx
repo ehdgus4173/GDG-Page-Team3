@@ -73,6 +73,7 @@ const LoginPage = () => {
       }
 
       setMessage("로그인에 성공했습니다.");
+      localStorage.setItem("isLoggedIn", "true"); // ✅ 로그인 상태 저장
       navigate("/");
     } catch (err) {
       setError(mapError(err?.message));

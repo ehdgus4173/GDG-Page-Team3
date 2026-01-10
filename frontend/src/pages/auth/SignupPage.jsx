@@ -334,8 +334,11 @@ const SignupPage = () => {
       <Button
         variant="primary"
         disabled={loading}
-        onClick={() => navigate("/signup/verified")}
-      >
+        onClick={() => {
+           localStorage.setItem("isLoggedIn", "true"); // ✅ 추가
+           navigate("/mypage");                       // ✅ 바로 마이페이지
+        }}
+        >
         인증 완료 페이지로 이동
       </Button>
     </>
