@@ -20,7 +20,7 @@ public class FirebaseConfig {
 
     private final ResourceLoader resourceLoader;
 
-    @Value("${firebase.credentials.resource}")
+    @Value("${firebase.credentials.resource:}")
     private String credentialsLocation;
 
     @Value("${firebase.project-id}")
