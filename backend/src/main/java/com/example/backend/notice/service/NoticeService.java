@@ -52,7 +52,10 @@ public class NoticeService {
 
         notice.increaseViewCount();
 
-        return toDetailResponse(notice);
+        Notice prevNotice = noticeRepository.findFirstByIdLessThanOrderByIdDesc(id).orElse(null);
+        Notice nextNotice = noticeRepository.findFirstByIdGreaterThanOrderByIdAsc(id).orElse(null);
+
+        return toDetailResponse(notice, prevNotice, nextNotice);
     }
 
     @Transactional
@@ -121,10 +124,17 @@ public class NoticeService {
                 notice.getCreatedAt());
     }
 
-    private NoticeDetailResponse toDetailResponse(Notice notice) {
+    private NoticeDetailResponse toDetailResponse(Notice notice, Notice prevNotice, Notice nextNotice) {
         List<NoticeDetailResponse.FileDto> files = notice.getFiles().stream()
                 .map(this::toFileDto)
                 .toList();
+
+        NoticeDetailResponse.PostNavigationDto prevDto = (prevNotice != null)
+                ? new NoticeDetailResponse.PostNavigationDto(prevNotice.getId(), prevNotice.getTitle())
+                : null;
+        NoticeDetailResponse.PostNavigationDto nextDto = (nextNotice != null)
+                ? new NoticeDetailResponse.PostNavigationDto(nextNotice.getId(), nextNotice.getTitle())
+                : null;
 
         return new NoticeDetailResponse(
                 notice.getId(),
@@ -133,7 +143,9 @@ public class NoticeService {
                 notice.getViewCount(),
                 notice.getCreatedAt(),
                 files,
-                notice.getAuthorId());
+                notice.getAuthorId(),
+                prevDto,
+                nextDto);
     }
 
     private NoticeDetailResponse.FileDto toFileDto(NoticeFile file) {

@@ -17,4 +17,10 @@ public interface NewsRepository extends JpaRepository<News, Long> {
 
     @Override
     Page<News> findAll(Pageable pageable);
+
+    // 이전 글 (현재 ID보다 작으면서 가장 큰 ID)
+    Optional<News> findFirstByGenerationAndIdLessThanOrderByIdDesc(int generation, Long id);
+
+    // 다음 글 (현재 ID보다 크면서 가장 작은 ID)
+    Optional<News> findFirstByGenerationAndIdGreaterThanOrderByIdAsc(int generation, Long id);
 }

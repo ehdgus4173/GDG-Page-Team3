@@ -62,7 +62,13 @@ public class NewsService {
         // 조회수 증가 (엔티티 메서드 사용)
         news.increaseViewCount();
 
-        return toDetail(news);
+        // 이전 글 / 다음 글 조회 (같은 기수 내)
+        News prevNews = newsRepository.findFirstByGenerationAndIdLessThanOrderByIdDesc(news.getGeneration(), id)
+                .orElse(null);
+        News nextNews = newsRepository.findFirstByGenerationAndIdGreaterThanOrderByIdAsc(news.getGeneration(), id)
+                .orElse(null);
+
+        return toDetail(news, prevNews, nextNews);
     }
 
     @Transactional
@@ -134,12 +140,18 @@ public class NewsService {
                 news.getGeneration());
     }
 
-    private NewsDetailResponse toDetail(News news) {
+    private NewsDetailResponse toDetail(News news, News prevNews, News nextNews) {
         List<NewsDetailResponse.FileDto> files = news.getFiles().stream()
                 .map(this::toFileDto)
                 .toList();
 
-        // 현재 업로드된 DTO는 views 필드명 사용 (NewsDetailResponse.java L9–17)
+        NewsDetailResponse.PostNavigationDto prevDto = (prevNews != null)
+                ? new NewsDetailResponse.PostNavigationDto(prevNews.getId(), prevNews.getTitle())
+                : null;
+        NewsDetailResponse.PostNavigationDto nextDto = (nextNews != null)
+                ? new NewsDetailResponse.PostNavigationDto(nextNews.getId(), nextNews.getTitle())
+                : null;
+
         return new NewsDetailResponse(
                 news.getId(),
                 news.getTitle(),
@@ -149,7 +161,9 @@ public class NewsService {
                 news.getThumbnailUrl(),
                 news.getGeneration(),
                 files,
-                news.getAuthorId());
+                news.getAuthorId(),
+                prevDto,
+                nextDto);
     }
 
     private NewsDetailResponse.FileDto toFileDto(NewsFile f) {

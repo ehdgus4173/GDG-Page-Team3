@@ -12,10 +12,17 @@ public record NoticeDetailResponse(
         int viewCount,
         LocalDateTime createdAt,
         List<FileDto> files,
-        Long authorId) {
+        Long authorId,
+        PostNavigationDto prevPost,
+        PostNavigationDto nextPost) {
     public record FileDto(
             Long id,
             String fileUrl,
             NoticeFileType fileType) {
+    }
+
+    public record PostNavigationDto(
+            Long id,
+            String title) {
     }
 }

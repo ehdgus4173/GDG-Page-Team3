@@ -15,4 +15,10 @@ public interface NoticeRepository extends JpaRepository<Notice, Long> {
 
     @Override
     Page<Notice> findAll(Pageable pageable);
+
+    // 이전 글 (현재 ID보다 작으면서 가장 큰 ID)
+    Optional<Notice> findFirstByIdLessThanOrderByIdDesc(Long id);
+
+    // 다음 글 (현재 ID보다 크면서 가장 작은 ID)
+    Optional<Notice> findFirstByIdGreaterThanOrderByIdAsc(Long id);
 }
