@@ -1,31 +1,60 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MemberCard from "./MemberCard";
 import MemberDetailModal from "./MemberDetailModal";
 import "./MemberGrid.css";
 
-/* 🔹 더미 멤버 데이터 (백엔드 연결 전용) */
-const dummyMembers = Array.from({ length: 16 }).map((_, i) => ({
-  id: i,
-  name: "박진아",
-  major: "문화예술학과",
-  desc: "한줄소개 소개 인사를 어떻게 해야할까",
-  imageUrl: "https://placehold.co/300x300",
-  tags: ["코어", "Front-end"],
-  skills: ["Figma", "React", "UI"],
-  links: [
-    { label: "Github", url: "https://github.com" },
-    { label: "Portfolio", url: "https://example.com" },
-    { label: "Instagram", url: "https://instagram.com" },
-    { label: "LinkedIn", url: "https://linkedin.com" },
-  ],
-}));
+import { fetchMembers } from "../../services/membersApi";
+import { mapMemberListItemToCard } from "../../services/memberMapper";
 
-function MemberGrid() {
+function MemberGrid({ page, selected, onTotalPages }) {
   const [open, setOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState(null);
 
+  const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    let alive = true;
+
+    async function load() {
+      setLoading(true);
+      setErrorMsg("");
+
+      try {
+        // ✅ size는 카드 16개 기준 (원하면 바꿔)
+        const data = await fetchMembers({
+          generation: selected?.generation,
+          part: selected?.part,
+          page,
+          size: 16,
+        });
+
+        // 백엔드가 배열만 주는 경우 / 페이지 객체로 주는 경우 둘 다 대응
+        const list = Array.isArray(data) ? data : (data?.content || data?.items || []);
+        const totalPages = data?.totalPages;
+
+        const mapped = list.map(mapMemberListItemToCard);
+
+        if (!alive) return;
+        setMembers(mapped);
+
+        if (typeof totalPages === "number" && onTotalPages) onTotalPages(totalPages);
+      } catch (e) {
+        if (!alive) return;
+        setErrorMsg(e.message || "멤버 목록을 불러오지 못했습니다.");
+        setMembers([]);
+      } finally {
+        if (alive) setLoading(false);
+      }
+    }
+
+    load();
+    return () => { alive = false; };
+  }, [page, selected?.generation, selected?.part, onTotalPages]);
+
   const handleCardClick = (member) => {
-    setSelectedMember(member);
+    setSelectedMember(member); // 여기엔 profileId가 있어야 함
     setOpen(true);
   };
 
@@ -34,23 +63,25 @@ function MemberGrid() {
     setSelectedMember(null);
   };
 
+  if (loading) return <div style={{ padding: 20 }}>불러오는 중...</div>;
+  if (errorMsg) return <div style={{ padding: 20 }}>{errorMsg}</div>;
+
   return (
     <>
       <div className="member-grid">
-        {dummyMembers.map((member) => (
+        {members.map((member) => (
           <MemberCard
-            key={member.id}
+            key={member.profileId}
             member={member}
             onClick={handleCardClick}
           />
         ))}
       </div>
 
-      {/* 🔹 멤버 상세 모달 */}
       <MemberDetailModal
         open={open}
         onClose={handleClose}
-        member={selectedMember}
+        member={selectedMember} // ✅ 여기서 profileId로 상세 재조회할거야
       />
     </>
   );

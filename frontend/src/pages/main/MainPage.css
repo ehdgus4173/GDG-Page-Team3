@@ -63,7 +63,7 @@
 .image-2-icon {
   width: 520px;
   max-width: 90vw;
-  opacity: 0.6;
+  opacity: 1;
   object-fit: contain;
   pointer-events: none;
 }
