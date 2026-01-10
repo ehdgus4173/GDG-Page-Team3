@@ -6,6 +6,7 @@ import com.example.backend.news.document.*;
 import com.example.backend.news.dto.*;
 import com.example.backend.news.service.NewsService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/news")
+@Tag(name = "News Controller", description = "뉴스/소식 관련 API")
 @RequiredArgsConstructor
 public class NewsController {
 

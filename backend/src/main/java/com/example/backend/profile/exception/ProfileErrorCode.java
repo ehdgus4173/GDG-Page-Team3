@@ -20,6 +20,9 @@ public enum ProfileErrorCode implements BaseErrorCode {
     @ExplainError("프로필 이미지를 찾을 수 없습니다.")
     PROFILE_IMAGE_NOT_FOUND(NOT_FOUND, "PROFILE_404_3", "프로필 이미지를 찾을 수 없습니다."),
 
+    @ExplainError("기술 스택을 찾을 수 없는 경우 발생합니다.")
+    TECH_STACK_NOT_FOUND(NOT_FOUND, "PROFILE_404_4", "기술 스택을 찾을 수 없습니다."),  // 이 줄 추가
+
     // 400 - Bad Request
     @ExplainError("이름이 null 또는 blank인 경우 발생합니다.")
     NAME_REQUIRED(BAD_REQUEST, "PROFILE_400_1", "이름은 필수입니다."),

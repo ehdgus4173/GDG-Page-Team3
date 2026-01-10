@@ -5,7 +5,6 @@ import {
   sendEmailVerification,
   signInWithEmailAndPassword,
   signOut,
-  reload,
 } from "firebase/auth";
 import Button from "../../components/Button/Button";
 import { auth } from "../../lib/firebase";
@@ -140,33 +139,6 @@ const SignupPage = () => {
     }
   };
 
-  const handleVerifyEmail = async () => {
-    setError("");
-    setMessage("");
-    try {
-      if (!email) throw new Error("학교 이메일을 입력해주세요.");
-      validatePasswords();
-      setLoading(true);
-
-      // 인증 완료 여부 확인 후 토큰 발급
-      const credential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        form.password
-      );
-      const user = credential.user;
-      await reload(user);
-      if (!user.emailVerified) {
-        throw new Error("이메일 인증이 아직 완료되지 않았습니다.");
-      }
-      setMessage("이메일 인증이 확인되었습니다. 이메일에서 받은 링크로 이동해주세요.");
-      await signOut(auth);
-    } catch (err) {
-      setError(mapFriendlyMessage(err.message) || "인증 확인 중 오류가 발생했습니다.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleResendEmail = async () => {
     setError("");
@@ -338,42 +310,40 @@ const SignupPage = () => {
             </div>
           </div>
 
-          <div className="form-row" style={{ gap: "12px", marginTop: "8px" }}>
-            {!mailSent && (
-              <Button
-                variant="outline-gray"
-                disabled={loading}
-                onClick={handleSignupAndSendEmail}
-              >
-                {loading ? "처리 중..." : "인증 메일 전송"}
-              </Button>
-            )}
-            {mailSent && (
-              <>
-                <Button
-                  variant="outline-gray"
-                  disabled={loading || resendCooldown > 0}
-                  onClick={handleResendEmail}
-                >
-                  {resendCooldown > 0 ? `재전송 ${resendCooldown}s` : "인증 메일 재전송"}
-                </Button>
-                <Button
-                  variant="outline-gray"
-                  disabled={loading}
-                  onClick={handleVerifyEmail}
-                >
-                  {loading ? "확인 중..." : "인증 완료 확인"}
-                </Button>
-              <Button
-                variant="primary"
-                disabled={loading}
-                onClick={() => navigate("/signup/verified")}
-              >
-                인증 완료 페이지로 이동
-              </Button>
-              </>
-            )}
-          </div>
+<div className="form-row" style={{ gap: "12px", marginTop: "8px" }}>
+  {!mailSent && (
+    <Button
+      variant="outline-gray"
+      disabled={loading}
+      onClick={handleSignupAndSendEmail}
+    >
+      {loading ? "처리 중..." : "인증 메일 전송"}
+    </Button>
+  )}
+
+  {mailSent && (
+    <>
+      <Button
+        variant="outline-gray"
+        disabled={loading || resendCooldown > 0}
+        onClick={handleResendEmail}
+      >
+        {resendCooldown > 0
+          ? `재전송 ${resendCooldown}s`
+          : "인증 메일 재전송"}
+      </Button>
+
+      <Button
+        variant="primary"
+        disabled={loading}
+        onClick={() => navigate("/signup/verified")}
+      >
+        인증 완료 페이지로 이동
+      </Button>
+    </>
+  )}
+</div>
+
         </div>
       </div>
     </div>

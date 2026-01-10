@@ -1,0 +1,59 @@
+.member-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    z-index: 9999;
+  }
+  
+  .member-modal {
+    position: relative;
+    width: min(980px, 95vw);
+    border-radius: 22px;
+    background: transparent;
+  }
+  
+  .member-modal-close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    font-size: 20px;
+    line-height: 1;
+  }
+  
+  .member-modal-content {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  
+  /* 왼쪽 멤버 카드 */
+  .member-modal-left {
+    width: 420px;
+  }
+  
+  /* 오른쪽 링크 카드 */
+  .member-modal-right {
+    flex: 1;
+    min-width: 320px;
+  }
+  
+  @media (max-width: 860px) {
+    .member-modal-content {
+      flex-direction: column;
+    }
+    .member-modal-left,
+    .member-modal-right {
+      width: 100%;
+    }
+  }
+  

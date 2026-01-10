@@ -23,4 +23,12 @@ public class Profile {
     private String bio;
 
     private String profileImageUrl;
+
+    public void updateBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void updateProfileImage(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
 }

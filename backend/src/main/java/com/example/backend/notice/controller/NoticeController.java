@@ -6,6 +6,7 @@ import com.example.backend.notice.document.*;
 import com.example.backend.notice.dto.*;
 import com.example.backend.notice.service.NoticeService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/notices")
+@Tag(name = "Notice Controller", description = "공지 관련 API")
 @RequiredArgsConstructor
 public class NoticeController {
 
