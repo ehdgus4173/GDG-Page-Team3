@@ -1,6 +1,7 @@
 package com.example.backend.profile.dto;
 
 import com.example.backend.common.SnsLinks;
+import com.example.backend.member.enums.MemberRole;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,11 +23,16 @@ public class MyProfileResponse {
 
     private int generation;
 
+    private MemberRole role;
+
     private String part;
 
-    private String imageUrl;
-
+    @Size(max=200)
     private String bio;
+
+    private String department;
+
+    private String imageUrl;
 
     private List<TechStackResponse> techStacks;
 

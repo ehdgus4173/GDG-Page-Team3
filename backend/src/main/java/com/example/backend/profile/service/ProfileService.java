@@ -63,9 +63,11 @@ public class ProfileService {
                 profile.getUserId(),
                 user.getName(),
                 user.getGeneration(),
+                user.getRole(),
                 user.getPart(),
-                profile.getProfileImageUrl(),
                 profile.getBio(),
+                profile.getDepartment(),
+                profile.getProfileImageUrl(),
                 techStacks,
                 snsLinkList.isEmpty() ? null : UserSnsLink.toSnsLinks(snsLinkList)
         );
@@ -82,8 +84,29 @@ public class ProfileService {
         Profile profile = profileRepository.findById(userId)
                 .orElseThrow(() -> new ProfileException(ProfileErrorCode.PROFILE_NOT_FOUND));
 
+        // ⭐ User 정보 업데이트 (필요한 경우)
+        if (request.getName() != null) {
+            user.updateName(request.getName());
+        }
+        if (request.getPart() != null) {
+            user.updatePart(request.getPart());
+        }
+        // generation, role은 보통 수정 불가능하므로 제외
+
         // bio 수정
-        profile.updateBio(request.getBio());
+        if (request.getBio() != null) {
+            profile.updateBio(request.getBio());
+        }
+
+        // ⭐ department 수정 추가
+        if (request.getDepartment() != null) {
+            profile.updateDepartment(request.getDepartment());
+        }
+
+        // ⭐ studentId 수정 추가 (Profile 또는 User에 있는지 확인 필요)
+        if (request.getStudentId() != null) {
+            profile.updateStudentId(request.getStudentId());
+        }
 
         // 기술 스택 전체 교체
         userTechStackRepository.deleteByUserId(userId);
@@ -115,6 +138,10 @@ public class ProfileService {
      */
     public ProfileImageUrlResponse updateProfileImage(Long userId, String imageUrl) {
 
+        if (imageUrl == null || imageUrl.isBlank()) {
+            throw new ProfileException(ProfileErrorCode.INVALID_IMAGE_URL);
+        }
+
         Profile profile = profileRepository.findById(userId)
                 .orElseThrow(() -> new ProfileException(ProfileErrorCode.PROFILE_NOT_FOUND));
 
@@ -131,10 +158,7 @@ public class ProfileService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ProfileException(ProfileErrorCode.PROFILE_NOT_FOUND));
 
-        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPasswordHash())) {
-            throw new ProfileException(ProfileErrorCode.INVALID_CURRENT_PASSWORD);
-        }
-
+        // 새 비밀번호가 기존 비밀번호와 일치한지 체크
         if (passwordEncoder.matches(request.getNewPassword(), user.getPasswordHash())) {
             throw new ProfileException(ProfileErrorCode.SAME_AS_CURRENT_PASSWORD);
         }

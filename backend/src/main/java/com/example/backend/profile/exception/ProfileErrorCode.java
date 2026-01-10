@@ -63,6 +63,9 @@ public enum ProfileErrorCode implements BaseErrorCode {
     @ExplainError("새 비밀번호가 현재 비밀번호와 동일합니다.")
     SAME_AS_CURRENT_PASSWORD(BAD_REQUEST, "PROFILE_400_15", "새 비밀번호는 현재 비밀번호와 달라야 합니다."),
 
+    @ExplainError("전달된 이미지 URL 형식이 비어있거나 올바르지 않은 경우 발생합니다.")
+    INVALID_IMAGE_URL(BAD_REQUEST, "PROFILE_400_16", "유효하지 않은 이미지 URL입니다."),
+
     @ExplainError("프로필 이미지 파일 크기가 제한을 초과한 경우 발생합니다.")
     IMAGE_SIZE_EXCEEDED(BAD_REQUEST, "PROFILE_400_20", "프로필 이미지 파일 크기가 너무 큽니다."),
 

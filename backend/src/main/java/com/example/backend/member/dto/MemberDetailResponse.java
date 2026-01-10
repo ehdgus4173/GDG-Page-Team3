@@ -1,6 +1,7 @@
 package com.example.backend.member.dto;
 
 import com.example.backend.common.SnsLinks;
+import com.example.backend.member.enums.MemberRole;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -20,13 +21,15 @@ public class MemberDetailResponse {
 
     private String name;
 
+    private MemberRole role;
+
     private int generation;
 
     private String part;
 
     private String imageUrl;
 
-    private String introduction;
+    private String bio;
 
     private List<String> techStacks;
 

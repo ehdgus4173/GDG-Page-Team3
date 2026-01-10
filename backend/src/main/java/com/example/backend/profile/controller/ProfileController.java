@@ -63,11 +63,11 @@ public class ProfileController {
     @ApiErrorExceptionsExample(ProfileImageExceptionDocs.class)
     public ResponseEntity<ProfileImageUrlResponse> updateProfileImage(
             @Parameter(description = "이미지 URL 정보", required = true)
-            @RequestBody Map<String, String> request,
+            @Valid @RequestBody ProfileImageUrlRequest request,
             Authentication authentication) {
         Long userId = (Long) authentication.getPrincipal();
-        String imageUrl = request.get("imageUrl");
-        ProfileImageUrlResponse response = profileService.updateProfileImage(userId, imageUrl);
+
+        ProfileImageUrlResponse response = profileService.updateProfileImage(userId, request.getImageUrl());
         return ResponseEntity.ok(response);
     }
 }
